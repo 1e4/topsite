@@ -26,5 +26,14 @@ Route::group([
     ]
 ], function() {
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::group([
+        'middleware'    =>  [
+            'isAdmin'
+        ],
+        'namespace' =>  'Administration'
+    ], function() {
+        Route::get('/', 'HomeController@getHome');
+    });
 });
 
