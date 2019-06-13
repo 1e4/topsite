@@ -11,5 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
+// Frontend styles
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
+
+// Admin styles SB Admin 2
+mix.copy('resources/js/admin/', 'public/js/admin/')
+    .sass('resources/sass/admin/admin.scss', 'public/css/admin');
