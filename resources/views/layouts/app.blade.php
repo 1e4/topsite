@@ -52,7 +52,7 @@
 
                             @if(Auth::user()->isAdmin())
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('administration') }}">{{ __('Administration') }}</a>
+                                <a class="nav-link" href="{{ route('admin.home') }}">{{ __('Administration') }}</a>
                             </li>
                             @endif
                             <li class="nav-item dropdown">

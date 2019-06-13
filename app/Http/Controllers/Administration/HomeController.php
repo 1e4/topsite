@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Http\Controllers\Administration;
 
-class HomeController extends \App\Http\Controllers\Controller {
+class HomeController extends \App\Http\Controllers\Controller
+{
 
     public function getHome()
     {

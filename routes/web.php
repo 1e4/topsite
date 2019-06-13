@@ -31,9 +31,10 @@ Route::group([
         'middleware'    =>  [
             'isAdmin'
         ],
-        'namespace' =>  'Administration'
+        'namespace' =>  'Administration',
+        'prefix'    =>  'administration'
     ], function() {
-        Route::get('/', 'HomeController@getHome');
+        Route::get('/', 'HomeController@getHome')->name('admin.home');
     });
 });
 
