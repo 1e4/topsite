@@ -9,9 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/admin/sb-admin-2.js') }}"></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -715,14 +712,14 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset("js/jquery.min.js") }}"></script>
+<script src="{{ asset("js/admin/bootstrap.bundle.min.js") }}"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="{{ asset("js/admin/jquery.easing.min.js") }}"></script>
 
 <!-- Page level plugins -->
-<script src="vendor/chart.js/Chart.min.js"></script>
+<script src="{{ asset('js/admin/Chart.min.js') }}"></script>
 
 <!-- Page level custom scripts -->
 <script src="{{ asset('js/admin/sb-admin-2.js') }}"></script>

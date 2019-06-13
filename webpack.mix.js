@@ -18,3 +18,9 @@ mix.js('resources/js/app.js', 'public/js')
 // Admin styles SB Admin 2
 mix.copy('resources/js/admin/', 'public/js/admin/')
     .sass('resources/sass/admin/admin.scss', 'public/css/admin');
+
+// Jquery stuff
+mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
+    .copy('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', 'public/js/admin')
+    .copy('node_modules/jquery.easing/jquery.easing.min.js', 'public/js/admin')
+    .copy('node_modules/chart.js/dist/Chart.min.js', 'public/js/admin');
