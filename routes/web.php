@@ -16,38 +16,40 @@ Route::get('/', function () {
 });
 
 Auth::routes([
-    'verify'    =>  true
+    'verify' => true
 ]);
 
 
 Route::group([
-    'middleware'    =>  [
+    'middleware' => [
         'verified'
     ]
-], function() {
+], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::group([
-        'middleware'    =>  [
+        'middleware' => [
             'isAdmin'
         ],
-        'namespace' =>  'Administration',
-        'prefix'    =>  'administration'
-    ], function() {
+        'namespace' => 'Administration',
+        'prefix' => 'administration'
+    ], function () {
         Route::get('/', 'HomeController@getHome')->name('admin.home');
 
         Route::group([
-            'prefix'    =>  'categories'
-        ], function() {
+            'prefix' => 'categories'
+        ], function () {
 
         });
 
         Route::group([
-            'prefix'    =>  'users'
-        ], function() {
+            'prefix' => 'users'
+        ], function () {
 
         });
 
+        Route::get('category/datatables', 'CategoryController@datatables')
+            ->name('category.datatables');
         Route::resource('category', 'CategoryController');
 
         Route::resource('game', 'GameController');

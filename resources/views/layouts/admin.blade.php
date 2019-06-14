@@ -47,12 +47,12 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories"
+            <a class="nav-link @if(!\Str::startsWith(request()->route()->getName(), 'category'))collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseCategories"
                aria-expanded="true" aria-controls="collapseCategories">
                 <i class="fas fa-fw fa-list"></i>
                 <span>Categories</span>
             </a>
-            <div id="collapseCategories" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseCategories" class="collapse @if(\Str::startsWith(request()->route()->getName(), 'category'))show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('category.index') }}">Overview</a>
                     <a class="collapse-item" href="{{ route('category.create') }}">Add Category</a>
@@ -62,12 +62,12 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGames"
+            <a class="nav-link @if(!\Str::startsWith(request()->route()->getName(), 'game'))collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseGames"
                aria-expanded="true" aria-controls="collapseGames">
                 <i class="fas fa-fw fa-gamepad"></i>
                 <span>Games</span>
             </a>
-            <div id="collapseGames" class="collapse" aria-labelledby="headingGames"
+            <div id="collapseGames" class="collapse @if(\Str::startsWith(request()->route()->getName(), 'game'))show @endif" aria-labelledby="headingGames"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('game.index') }}">Overview</a>
@@ -82,12 +82,12 @@
 
         <!-- Nav Item - Users Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
+            <a class="nav-link @if(!\Str::startsWith(request()->route()->getName(), 'user'))collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseUsers"
                aria-expanded="true" aria-controls="collapseUsers">
                 <i class="fas fa-fw fa-users"></i>
                 <span>Users</span>
             </a>
-            <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers"
+            <div id="collapseUsers" class="collapse @if(\Str::startsWith(request()->route()->getName(), 'user'))show @endif" aria-labelledby="headingUsers"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('user.index') }}">Overview</a>

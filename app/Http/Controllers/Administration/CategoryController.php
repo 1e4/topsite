@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Administration;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view("administration.category.index");
+    }
+
+    public function datatables()
+    {
+        return DataTables::of(Category::query())->make(true);
     }
 
     /**

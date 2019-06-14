@@ -5,5 +5,7 @@
     "/js/jquery.min.js": "/js/jquery.min.js",
     "/js/admin/bootstrap.bundle.min.js": "/js/admin/bootstrap.bundle.min.js",
     "/js/admin/jquery.easing.min.js": "/js/admin/jquery.easing.min.js",
-    "/js/admin/Chart.min.js": "/js/admin/Chart.min.js"
+    "/js/admin/Chart.min.js": "/js/admin/Chart.min.js",
+    "/js/admin/dataTables.bootstrap4.min.js": "/js/admin/dataTables.bootstrap4.min.js",
+    "/js/admin/jquery.dataTables.min.js": "/js/admin/jquery.dataTables.min.js"
 }
