@@ -22,8 +22,8 @@ class HomeController extends Controller
             'votesIn' => 0,
             'votesOut' => 0,
             'users' => User::all()->count(),
-            'gamesPendingReview' => $games->where('pending', '=', true)->count(),
-            'goldMembership' => $games->where('premium','=', true)->count(),
+            'gamesPendingReview' => $games->where('pending', '=', false)->count(),
+            'goldMembership' => $games->where('premium', '=', true)->count(),
         ];
 
         return view('administration.index', compact('gamesReleasedChartData', 'gamesReleasedChartLabels', 'stats'));
@@ -33,7 +33,7 @@ class HomeController extends Controller
     {
 
         $gamesReleasedChartLabels = function () {
-            $date = Carbon::now()->subDays(30);
+            $date = Carbon::now()->startOfDay()->subDays(30);
 
             $dates = [];
 
@@ -48,21 +48,23 @@ class HomeController extends Controller
         $gamesReleasedChartData = function () use ($gamesReleasedChartLabels) {
             $dates = $gamesReleasedChartLabels();
 
-            $carbon = Carbon::now()->subDays(30);
+            $carbon = Carbon::now()->startOfDay()->subDays(30);
 
             $data = [];
 
             $games = Game::where("created_at", ">=", $carbon)->get();
 
             foreach ($dates as $date) {
-                $newDate = $carbon->addDay();
 
-                $data[] = $games->where('created_at', '>=', $date)
+                $newDate = $carbon->clone()->addDay()->endOfDay();
+
+                $data[] = $games->where('created_at', '>=', $carbon)
                     ->where('created_at', '<', $newDate)
                     ->count();
 
                 $carbon = $newDate;
             }
+
 
             return $data;
         };
