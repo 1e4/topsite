@@ -35,6 +35,26 @@ Route::group([
         'prefix'    =>  'administration'
     ], function() {
         Route::get('/', 'HomeController@getHome')->name('admin.home');
+
+        Route::group([
+            'prefix'    =>  'categories'
+        ], function() {
+
+        });
+
+        Route::group([
+            'prefix'    =>  'users'
+        ], function() {
+
+        });
+
+        Route::resource('category', 'CategoryController');
+
+        Route::resource('game', 'GameController');
+
+        Route::resource('user', 'UserController');
+
+
     });
 });
 
