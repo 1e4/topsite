@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Administration;
 
 use App\Category;
 use App\Game;
+use App\Http\Requests\CreateGameRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
 class GameController extends Controller
@@ -16,9 +19,9 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        //
+        return view("administration.game.index");
     }
 
 
@@ -28,16 +31,25 @@ class GameController extends Controller
      */
     public function datatables(): JsonResponse
     {
-        return DataTables::of(Game::query())->make(true);
+        $games = Game::query();
+        return DataTables::of($games)
+            ->addColumn('action', function ($game) {
+                $route = route('game.edit', $game);
+                return '<a href="'. $route .'" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
+            })->make(true);
     }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $categories = [];
+        $categories[] = "-- Select Category --";
+        $categories = array_merge($categories, Category::all()->pluck('name')->toArray());
+
+        return view('administration.game.create', compact('categories'));
     }
 
     /**
@@ -46,9 +58,17 @@ class GameController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateGameRequest $request): RedirectResponse
     {
-        //
+        $game = new Game();
+        $game->fill($request->all('name', 'url', 'description', 'category_id'));
+        $game->pending = $request->has('pending');
+        $game->premium = $request->has('premium');
+        $game->uuid = \Str::uuid();
+        $game->save();
+
+        return redirect()
+            ->route('game.show', [$game]);
     }
 
     /**
@@ -57,9 +77,9 @@ class GameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Game $game): View
     {
-        //
+        return view('administration.game.show', compact('game'));
     }
 
     /**
@@ -68,9 +88,13 @@ class GameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Game $game): View
     {
-        //
+        $categories = [];
+        $categories[] = "-- Select Category --";
+        $categories = array_merge($categories, Category::all()->pluck('name')->toArray());
+
+        return view('administration.game.edit', compact('game', 'categories'));
     }
 
     /**
@@ -80,19 +104,28 @@ class GameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateGameRequest $request, Game $game): RedirectResponse
     {
-        //
+        $game->fill($request->all('name', 'url', 'description', 'category_id'));
+        $game->pending = $request->has('pending');
+        $game->premium = $request->has('premium');
+        $game->save();
+
+        return redirect()
+            ->route('game.show', $game);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Game $game
+     * @return RedirectResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Game $game): RedirectResponse
     {
-        //
+        $game->delete();
+
+        return redirect()->route('game.index');
     }
 }

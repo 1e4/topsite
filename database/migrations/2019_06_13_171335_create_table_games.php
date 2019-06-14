@@ -19,7 +19,7 @@ class CreateTableGames extends Migration
             $table->string("url");
             $table->string("name");
             $table->text("description");
-            $table->bigInteger("category")->unsigned();
+            $table->bigInteger("category_id")->unsigned();
             $table->string("slug");
             $table->boolean("pending")->default(false);
             $table->boolean("premium")->default(false);

@@ -52,8 +52,12 @@ Route::group([
             ->name('category.datatables');
         Route::resource('category', 'CategoryController');
 
+        Route::get('game/datatables', 'GameController@datatables')
+            ->name('game.datatables');
         Route::resource('game', 'GameController');
 
+        Route::get('user/datatables', 'UserController@datatables')
+            ->name('user.datatables');
         Route::resource('user', 'UserController');
 
 
