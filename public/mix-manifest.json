@@ -1,11 +1,11 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/css/admin/admin.css": "/css/admin/admin.css",
-    "/js/jquery.min.js": "/js/jquery.min.js",
-    "/js/admin/bootstrap.bundle.min.js": "/js/admin/bootstrap.bundle.min.js",
-    "/js/admin/jquery.easing.min.js": "/js/admin/jquery.easing.min.js",
-    "/js/admin/Chart.min.js": "/js/admin/Chart.min.js",
-    "/js/admin/dataTables.bootstrap4.min.js": "/js/admin/dataTables.bootstrap4.min.js",
-    "/js/admin/jquery.dataTables.min.js": "/js/admin/jquery.dataTables.min.js"
+    "/js/app.js": "/js/app.js?id=360f4a56a2d7e48fa682",
+    "/css/app.css": "/css/app.css?id=945a4815b8259ae43873",
+    "/css/admin/admin.css": "/css/admin/admin.css?id=b8ffc0d73ce1f9cbd1e6",
+    "/js/jquery.min.js": "/js/jquery.min.js?id=220afd743d9e9643852e",
+    "/js/admin/bootstrap.bundle.min.js": "/js/admin/bootstrap.bundle.min.js?id=a454220fc07088bf1fdd",
+    "/js/admin/jquery.easing.min.js": "/js/admin/jquery.easing.min.js?id=e2d41e5c8fed838d9014",
+    "/js/admin/Chart.min.js": "/js/admin/Chart.min.js?id=b235b564de9c2c1d61d7",
+    "/js/admin/dataTables.bootstrap4.min.js": "/js/admin/dataTables.bootstrap4.min.js?id=b63fdeeb4941fd4cab8a",
+    "/js/admin/jquery.dataTables.min.js": "/js/admin/jquery.dataTables.min.js?id=97fd6a774fc6211e7619"
 }

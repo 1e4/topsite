@@ -21,6 +21,10 @@ class CreateTableGames extends Migration
             $table->text("description");
             $table->bigInteger("category")->unsigned();
             $table->string("slug");
+            $table->boolean("pending")->default(false);
+            $table->boolean("premium")->default(false);
+            $table->bigInteger("votes_in")->default(0);
+            $table->bigInteger("votes_out")->default(0);
             $table->timestamps();
 
             $table->foreign("category")

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Administration;
 
+use App\Category;
+use App\Game;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\DataTables;
 
 class GameController extends Controller
 {
@@ -17,6 +21,15 @@ class GameController extends Controller
         //
     }
 
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function datatables(): JsonResponse
+    {
+        return DataTables::of(Game::query())->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *

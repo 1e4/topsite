@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Administration;
 
-use App\Games;
+use App\Game;
 use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
@@ -15,7 +15,7 @@ class HomeController extends Controller
     {
         list($gamesReleasedChartData, $gamesReleasedChartLabels) = $this->buildGamesReleasedChart();
 
-        $games = Games::all();
+        $games = Game::all();
 
         $stats = [
             'gamesTotal' => $games->count(),
@@ -52,7 +52,7 @@ class HomeController extends Controller
 
             $data = [];
 
-            $games = Games::where("created_at", ">=", $carbon)->get();
+            $games = Game::where("created_at", ">=", $carbon)->get();
 
             foreach ($dates as $date) {
                 $newDate = $carbon->addDay();

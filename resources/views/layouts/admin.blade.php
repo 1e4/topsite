@@ -261,8 +261,6 @@
 
 <!-- Page level custom scripts -->
 <script src="{{ asset('js/admin/sb-admin-2.js') }}"></script>
-<script src="{{ asset("js/admin/demo/chart-area-demo.js") }}"></script>
-<script src="{{ asset("js/admin/demo/chart-pie-demo.js") }}"></script>
 
 @yield('javascript')
 

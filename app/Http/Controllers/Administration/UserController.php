@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Administration;
 
+use App\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
@@ -17,6 +20,15 @@ class UserController extends Controller
         //
     }
 
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function datatables(): JsonResponse
+    {
+        return DataTables::of(User::query())->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
