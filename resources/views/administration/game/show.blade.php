@@ -55,7 +55,7 @@
                 </tr>
                 <tr>
                     <td>Votes Out</td>
-                    <td>{{ number_format($game->votes_in) }}</td>
+                    <td>{{ number_format($game->votes_out) }}</td>
                 </tr>
                 </tbody>
             </table>
