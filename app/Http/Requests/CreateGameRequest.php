@@ -37,7 +37,7 @@ class CreateGameRequest extends FormRequest
             'url'   =>  [
                 'required',
                 'min:5',
-                'max:255',
+                'max:191',
                 'url'
             ],
             'category'  =>  [

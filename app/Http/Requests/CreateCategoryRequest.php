@@ -27,7 +27,7 @@ class CreateCategoryRequest extends FormRequest
             'name'  =>  [
                 'required',
                 'min:4',
-                'max:255'
+                'max:191'
             ]
         ];
     }
