@@ -23,8 +23,8 @@
             {!! \Form::text('url', 'Url') !!}
             {!! \Form::textarea('description', 'Description') !!}
             {!! \Form::select('category', 'Category', $categories, $game->category->id) !!}
-            {!! \Form::checkbox('pending', 'Visible', 1, $game->pending) !!}
-            {!! \Form::checkbox('premium', 'Is Premium', 1, $game->premium) !!}
+            {!! \Form::checkbox('is_pending', 'Is Visible', 1, $game->is_pending) !!}
+            {!! \Form::checkbox('is_premium', 'Is Premium', 1, $game->is_premium) !!}
             {!! \Form::submit('Update Game') !!}
             {!! \Form::close() !!}
         </div>
