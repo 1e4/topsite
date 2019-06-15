@@ -22,8 +22,8 @@ class HomeController extends Controller
             'votesIn' => 0,
             'votesOut' => 0,
             'users' => User::all()->count(),
-            'gamesPendingReview' => $games->where('pending', '=', false)->count(),
-            'goldMembership' => $games->where('premium', '=', true)->count(),
+            'gamesPendingReview' => $games->where('is_pending', '=', false)->count(),
+            'goldMembership' => $games->where('is_premium', '=', true)->count(),
         ];
 
         return view('administration.index', compact('gamesReleasedChartData', 'gamesReleasedChartLabels', 'stats'));

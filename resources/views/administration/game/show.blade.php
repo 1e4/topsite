@@ -43,11 +43,11 @@
                 </tr>
                 <tr>
                     <td>Pending</td>
-                    <td>{{ $game->pending === false ? 'Review Needed' : 'Active' }}</td>
+                    <td>{{ $game->is_pending === false ? 'Review Needed' : 'Active' }}</td>
                 </tr>
                 <tr>
                     <td>Premium</td>
-                    <td>{{ $game->premium === true ? 'Premium' : 'Standard' }}</td>
+                    <td>{{ $game->is_premium === true ? 'Premium' : 'Standard' }}</td>
                 </tr>
                 <tr>
                     <td>Votes In</td>
@@ -55,7 +55,7 @@
                 </tr>
                 <tr>
                     <td>Votes Out</td>
-                    <td>{{ number_format($game->votes_in) }}</td>
+                    <td>{{ number_format($game->votes_out) }}</td>
                 </tr>
                 </tbody>
             </table>
