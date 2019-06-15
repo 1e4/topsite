@@ -55,8 +55,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Ian Milliken** - *Initial work* - [Github](https://github.com/1e4)
-* **WaveHack** - *Initial work* - [Github](https://github.com/WaveHack) [Twitter](https://twitter.com/WaveHack)
+* **Ian Milliken** - *Initial work* - [GitHub](https://github.com/1e4)
+* **WaveHack** - *Initial work* - [GitHub](https://github.com/WaveHack) [Twitter](https://twitter.com/WaveHack)
 
 ## License
 
