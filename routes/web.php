@@ -29,7 +29,7 @@ Route::group([
 
     Route::group([
         'middleware' => [
-            'isAdmin'
+            'admin'
         ],
         'namespace' => 'Administration',
         'prefix' => 'administration'
