@@ -38,10 +38,11 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'bool',
     ];
 
     public function isAdmin(): bool
     {
-        return $this->isAdmin === 1;
+        return $this->is_admin === true;
     }
 }
