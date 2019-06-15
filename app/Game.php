@@ -15,7 +15,7 @@ class Game extends Model
         'url',
         'name',
         'description',
-        'category',
+        'category_id',
         'is_pending',
         'is_premium',
     ];
