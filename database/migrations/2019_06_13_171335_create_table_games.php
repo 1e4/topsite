@@ -27,7 +27,7 @@ class CreateTableGames extends Migration
             $table->bigInteger("votes_out")->default(0);
             $table->timestamps();
 
-            $table->foreign("category")
+            $table->foreign("category_id")
                 ->references("id")
                 ->on("categories");
         });
