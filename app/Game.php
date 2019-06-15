@@ -16,13 +16,13 @@ class Game extends Model
         'name',
         'description',
         'category',
-        'pending',
-        'premium',
+        'is_pending',
+        'is_premium',
     ];
 
     protected $casts = [
-        'pending'   =>  'boolean',
-        'premium'   =>  'boolean',
+        'is_pending'   =>  'boolean',
+        'is_premium'   =>  'boolean',
     ];
 
     public function category(): BelongsTo
