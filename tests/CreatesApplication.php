@@ -17,6 +17,9 @@ trait CreatesApplication
 
         $app->make(Kernel::class)->bootstrap();
 
+        \Artisan::call('migrate');
+        \Artisan::call('db:seed');
+
         return $app;
     }
 }
