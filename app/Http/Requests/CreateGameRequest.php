@@ -40,7 +40,7 @@ class CreateGameRequest extends FormRequest
                 'max:191',
                 'url'
             ],
-            'category'  =>  [
+            'category_id'  =>  [
                 'required',
                 'exists:categories,id'
             ]
