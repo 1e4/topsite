@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Administration;
 
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\EditUserRequest;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -15,9 +20,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        //
+        return view("administration.user.index");
     }
 
 
@@ -27,16 +32,21 @@ class UserController extends Controller
      */
     public function datatables(): JsonResponse
     {
-        return DataTables::of(User::query())->make(true);
+        $games = User::query();
+        return DataTables::of($games)
+            ->addColumn('action', function ($game) {
+                $route = route('user.edit', $game);
+                return '<a href="'. $route .'" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
+            })->make(true);
     }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('administration.user.create');
     }
 
     /**
@@ -45,9 +55,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request): RedirectResponse
     {
-        //
+        $user = new User();
+        $user->fill($request->all('name', 'email'));
+
+        if($request->has('is_verified'))
+            $user->email_verified_at = Carbon::now();
+
+        $user->is_admin = $request->has('is_admin');
+
+        $user->password = bcrypt('password');
+        $user->save();
+
+        return redirect()
+            ->route('user.show', [$user]);
     }
 
     /**
@@ -56,9 +78,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('administration.user.show', compact('user'));
     }
 
     /**
@@ -67,9 +89,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user): View
     {
-        //
+        return view('administration.user.edit', compact('user'));
     }
 
     /**
@@ -79,9 +101,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditUserRequest $request, User $user): RedirectResponse
     {
-        //
+        $user->fill($request->all('name', 'email'));
+
+        if($request->has('is_verified'))
+            $user->email_verified_at = Carbon::now();
+
+        $user->is_admin = $request->has('is_admin');
+
+        if($request->has('password'))
+            $user->password = bcrypt('password');
+
+        $user->save();
+
+        return redirect()
+            ->route('user.show', [$user]);
     }
 
     /**
@@ -90,8 +125,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user): RedirectResponse
     {
-        //
+        $user->delete();
+
+        return redirect()->route('user.index');
     }
 }
