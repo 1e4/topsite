@@ -38,7 +38,11 @@ Yarn or NPM
 
 ## Running the tests
 
-There are currently no tests
+We use PHPUnit for tests
+
+```
+./vendor/bin/phpunit
+```
 
 ## Built With
 
