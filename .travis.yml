@@ -1,0 +1,27 @@
+language: php
+
+php:
+  - "7.3"
+
+addons:
+  mariadb: '10.0'
+
+before_script:
+  - cp .env.travis .env
+  - mysql -e 'create database testing;' -u root
+  - composer self-update
+  - composer install --no-interaction
+
+script:
+  - php artisan key:generate
+  - php artisan migrate:fresh
+  - vendor/bin/phpunit
+  
+after_success:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $DISCORD_URL
+after_failure:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh failure $DISCORD_URL
