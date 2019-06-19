@@ -30,6 +30,21 @@ Route::group([
 ], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('/account', 'AccountController@index')
+        ->name('account.index');
+
+    Route::post('/account/email', 'AccountController@updateEmail')
+        ->name('account.email.post');
+
+    Route::post('/account/password', 'AccountController@updatePassword')
+        ->name('account.password.post');
+
+    Route::get('/account/email', 'AccountController@getEmail')
+        ->name('account.email');
+
+    Route::get('/account/password', 'AccountController@getPassword')
+        ->name('account.password');
+
     Route::group([
         'middleware' => [
             'admin'
