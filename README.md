@@ -1,5 +1,7 @@
 # Topsite Application
 
+[![Build Status](https://travis-ci.org/1e4/topsite.svg?branch=develop)](https://travis-ci.org/1e4/topsite)
+
 There are many different topsite applications out there, but none that are open source that have a range of features, we aim to address this, so whether it's a PBBG topsite, Minecraft topsite or any other topsite we aim to be to go solution
 
 ## Getting Started
