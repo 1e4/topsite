@@ -90,9 +90,9 @@
         <div class="col-12">
             <main class="py-4">
                 @if(auth()->user())
-                    @if(!auth()->user()->email_verified_at)
+                    @if(!auth()->user()->email_verified_at && request()->route()->getName() !== 'verification.notice')
                         <div class="alert alert-danger">
-                            <a href="{{ route('verification.notice') }}">You account has not been activated yet, you cannot add any listings or comment/rate until this is done, click here to verify.</a>
+                            <a href="{{ route('verification.notice') }}">Your account has not been activated yet, you cannot add any listings or comment/rate until this is done, click here to verify.</a>
                         </div>
                     @endif
                 @endif
