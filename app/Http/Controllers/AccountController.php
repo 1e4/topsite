@@ -29,6 +29,8 @@ class AccountController extends Controller
         $user->password = bcrypt($passwordRequest->new_password);
         $user->save();
 
+        flash('Your password was updated')->success();
+
         return back();
     }
 
@@ -38,6 +40,8 @@ class AccountController extends Controller
         $user->email = $emailRequest->email;
         $user->email_verified_at = null;
         $user->save();
+
+        flash('Your email was updated')->success();
 
         return back();
     }

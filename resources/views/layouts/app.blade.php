@@ -99,6 +99,7 @@
                         </div>
                     @endif
                 @endif
+                @include('flash::message')
                 @yield('content')
             </main>
         </div>
