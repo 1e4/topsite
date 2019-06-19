@@ -172,7 +172,7 @@
             var myLineChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: {!! json_encode($gamesReleasedChartLabels()) !!},
+                    labels: {!! json_encode($gamesReleasedChartLabels) !!},
                     datasets: [{
                         label: "Games",
                         lineTension: 0.3,
@@ -186,7 +186,7 @@
                         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
-                        data: {!! json_encode($gamesReleasedChartData()) !!},
+                        data: {!! json_encode($gamesReleasedChartData) !!},
                     }],
                 },
                 options: {

@@ -22,7 +22,7 @@ class HomeController extends Controller
             'votesIn' => 0,
             'votesOut' => 0,
             'users' => User::all()->count(),
-            'gamesPendingReview' => $games->where('is_pending', '=', false)->count(),
+            'gamesPendingReview' => $games->where('is_pending', '=', true)->count(),
             'goldMembership' => $games->where('is_premium', '=', true)->count(),
         ];
 
@@ -32,47 +32,53 @@ class HomeController extends Controller
     private function buildGamesReleasedChart(): array
     {
 
-        $gamesReleasedChartLabels = function () {
-            $date = Carbon::now()->startOfDay()->subDays(30);
+        $gamesReleasedChartLabels = $this->getChartLabels();
 
-            $dates = [];
-
-            for ($i = 1; $i < 31; $i++) {
-                $date->addDay();
-                $dates[] = $date->shortDayName . ' ' . $date->format("jS");
-            }
-
-            return $dates;
-        };
-
-        $gamesReleasedChartData = function () use ($gamesReleasedChartLabels) {
-            $dates = $gamesReleasedChartLabels();
-
-            $carbon = Carbon::now()->startOfDay()->subDays(30);
-
-            $data = [];
-
-            $games = Game::where("created_at", ">=", $carbon)->get();
-
-            foreach ($dates as $date) {
-
-                $newDate = $carbon->clone()->addDay()->endOfDay();
-
-                $data[] = $games->where('created_at', '>=', $carbon)
-                    ->where('created_at', '<', $newDate)
-                    ->count();
-
-                $carbon = $newDate;
-            }
-
-
-            return $data;
-        };
+        $gamesReleasedChartData = $this->getChartData();
 
         return [
             $gamesReleasedChartData,
             $gamesReleasedChartLabels
         ];
+    }
+
+    private function getChartLabels(): array {
+
+        $date = Carbon::now()->startOfDay()->subDays(30);
+
+        $dates = [];
+
+        for ($i = 1; $i < 31; $i++) {
+            $date->addDay();
+            $dates[] = $date->shortDayName . ' ' . $date->format("jS");
+        }
+
+        return $dates;
+    }
+
+    private function getChartData(): array {
+
+        $dates = $this->getChartLabels();
+
+        $carbon = Carbon::now()->startOfDay()->subDays(30);
+
+        $data = [];
+
+        $games = Game::where("created_at", ">=", $carbon)->get();
+
+        foreach ($dates as $date) {
+
+            $newDate = $carbon->clone()->addDay()->endOfDay();
+
+            $data[] = $games->where('created_at', '>=', $carbon)
+                ->where('created_at', '<', $newDate)
+                ->count();
+
+            $carbon = $newDate;
+        }
+
+
+        return $data;
     }
 
 }
