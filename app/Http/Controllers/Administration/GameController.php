@@ -67,6 +67,8 @@ class GameController extends Controller
         $game->uuid = \Str::uuid();
         $game->save();
 
+        flash('Game has been created')->success();
+
         return redirect()
             ->route('game.show', [$game]);
     }
@@ -111,6 +113,8 @@ class GameController extends Controller
         $game->is_premium = $request->has('is_premium');
         $game->save();
 
+        flash('Game has been updated')->success();
+
         return redirect()
             ->route('game.show', $game);
     }
@@ -125,6 +129,8 @@ class GameController extends Controller
     public function destroy(Game $game): RedirectResponse
     {
         $game->delete();
+
+        flash('Game has been deleted')->success();
 
         return redirect()->route('game.index');
     }

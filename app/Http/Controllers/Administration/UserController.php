@@ -68,6 +68,8 @@ class UserController extends Controller
         $user->password = bcrypt('password');
         $user->save();
 
+        flash('User has been created')->success();
+
         return redirect()
             ->route('user.show', [$user]);
     }
@@ -115,6 +117,8 @@ class UserController extends Controller
 
         $user->save();
 
+        flash('User has been updated')->success();
+
         return redirect()
             ->route('user.show', [$user]);
     }
@@ -122,12 +126,15 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return RedirectResponse
+     * @throws \Exception
      */
     public function destroy(User $user): RedirectResponse
     {
         $user->delete();
+
+        flash('User has been deleted')->success();
 
         return redirect()->route('user.index');
     }
