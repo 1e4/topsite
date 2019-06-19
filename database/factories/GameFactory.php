@@ -12,8 +12,7 @@ $factory->define(\App\Game::class, function (Faker $faker) {
         'url'   =>  $faker->url,
         'description'   =>  $faker->realText($faker->numberBetween(30,60)),
         'is_premium'    =>  mt_rand(1,5) == 1 ? true : false,
-        'category_id'   =>  1,
         'is_pending'    =>  0,
-        'category_id'  =>  \App\Category::orderByRaw("RAND()")->limit(1)->first()->id,
+        'category_id'  =>  \App\Category::all()->random()->first()->id,
     ];
 });
