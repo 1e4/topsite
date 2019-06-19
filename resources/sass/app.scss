@@ -6,3 +6,31 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.link-block-absolute {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+.link-above-block-absolute {
+  position: relative;
+  z-index: 2;
+}
+
+.listing {
+  background: $gray-200;
+  position: relative;
+
+  &.listing-premium {
+    border: 1px solid gold;
+    background: $gray-100;
+  }
+  .listing-header {
+    a {
+
+    }
+  }
+}

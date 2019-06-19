@@ -11,13 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ListingsHomeController@index');
 
 Auth::routes([
     'verify' => true
 ]);
+
+Route::get('/category/{category}', 'ListingCategoryController@show')
+    ->name('front.category.show');
+Route::get('/listing/{listing}', 'ListingController@show')
+    ->name('front.listing.show');
 
 
 Route::group([
