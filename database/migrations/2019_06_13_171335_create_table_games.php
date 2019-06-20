@@ -25,7 +25,12 @@ class CreateTableGames extends Migration
             $table->boolean('is_premium')->default(false);
             $table->bigInteger('votes_in')->default(0);
             $table->bigInteger('votes_out')->default(0);
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('created_by')
+                ->references('id')
+                ->on('users');
 
             $table->foreign('category_id')
                 ->references('id')

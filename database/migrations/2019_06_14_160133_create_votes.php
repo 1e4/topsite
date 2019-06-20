@@ -17,7 +17,12 @@ class CreateVotes extends Migration
             $table->bigIncrements('id');
             $table->ipAddress('ip');
             $table->tinyInteger('type');
+            $table->bigInteger('game_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('game_id')
+                ->references('id')
+                ->on('games');
         });
     }
 
