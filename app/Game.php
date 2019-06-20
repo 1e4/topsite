@@ -5,7 +5,7 @@ namespace App;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Game extends Model
 {
@@ -21,13 +21,35 @@ class Game extends Model
     ];
 
     protected $casts = [
-        'is_pending'   =>  'boolean',
-        'is_premium'   =>  'boolean',
+        'is_pending' => 'boolean',
+        'is_premium' => 'boolean',
     ];
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function scopeFindBySlug($query, $slug): Game
+    {
+        return $query->whereSlug($slug)->firstOrFail();
+    }
+
+    public function scopeVotesIn($query): HasMany
+    {
+        return $this->hasMany(Vote::class, 'id', 'game_id')
+            ->whereType('in');
+    }
+
+    public function scopeVotesOut($query): HasMany
+    {
+        return $this->hasMany(Vote::class, 'id', 'game_id')
+            ->whereType('out');
+    }
+
+    public function setCreatedBy($value)
+    {
+        $this->attributes['created_by'] = auth()->user() ? auth()->user()->id : null;
     }
 
     public function sluggable(): array
