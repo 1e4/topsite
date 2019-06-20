@@ -6,7 +6,7 @@ use App\Game;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ListingsHomeController extends Controller
+class ListingHomeController extends Controller
 {
     public function index(): View
     {

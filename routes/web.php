@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'ListingsHomeController@index');
+Route::get('/', 'ListingHomeController@index');
 
 Auth::routes([
     'verify' => true
