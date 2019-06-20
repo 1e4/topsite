@@ -4,7 +4,7 @@
 @endphp
 
 <div class="listing py-2 @if($listing->is_premium) listing-premium @endif mb-3">
-    <a href="{{ route('front.listing.show', $listing) }}" class="link-block-absolute"></a>
+    <a href="{{ route('front.listing.show', $listing->slug) }}" class="link-block-absolute"></a>
 
     <div class="container">
         <div class="row">
