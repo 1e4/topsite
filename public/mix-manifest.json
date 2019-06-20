@@ -1,11 +1,12 @@
 {
     "/js/app.js": "/js/app.js?id=360f4a56a2d7e48fa682",
     "/css/app.css": "/css/app.css?id=2660ab92de54f793a641",
-    "/css/admin/admin.css": "/css/admin/admin.css?id=cd9f9f1706a258164b42",
+    "/css/admin/admin.css": "/css/admin/admin.css?id=069c1a5cb969438df69b",
+    "/js/helpers.js": "/js/helpers.js?id=fd31e989a9e6055eb23c",
     "/js/jquery.min.js": "/js/jquery.min.js?id=220afd743d9e9643852e",
     "/js/admin/bootstrap.bundle.min.js": "/js/admin/bootstrap.bundle.min.js?id=a454220fc07088bf1fdd",
-    "/js/admin/jquery.easing.min.js": "/js/admin/jquery.easing.min.js?id=e2d41e5c8fed838d9014",
-    "/js/admin/Chart.min.js": "/js/admin/Chart.min.js?id=b235b564de9c2c1d61d7",
+    "/js/jquery.easing.min.js": "/js/jquery.easing.min.js?id=e2d41e5c8fed838d9014",
+    "/js/Chart.min.js": "/js/Chart.min.js?id=b235b564de9c2c1d61d7",
     "/js/admin/dataTables.bootstrap4.min.js": "/js/admin/dataTables.bootstrap4.min.js?id=b63fdeeb4941fd4cab8a",
     "/js/admin/jquery.dataTables.min.js": "/js/admin/jquery.dataTables.min.js?id=97fd6a774fc6211e7619"
 }
