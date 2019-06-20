@@ -255,10 +255,12 @@
 <script src="{{ asset("js/admin/bootstrap.bundle.min.js") }}"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="{{ asset("js/admin/jquery.easing.min.js") }}"></script>
+<script src="{{ asset("js/jquery.easing.min.js") }}"></script>
+
+<script src="{{ asset("js/helpers.js") }}"></script>
 
 <!-- Page level plugins -->
-<script src="{{ asset('js/admin/Chart.min.js') }}"></script>
+<script src="{{ asset('js/Chart.min.js') }}"></script>
 
 <!-- Page level custom scripts -->
 <script src="{{ asset('js/admin/sb-admin-2.js') }}"></script>
