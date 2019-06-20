@@ -25,8 +25,11 @@ Next run the following
 ```
 composer install
 php artisan key:generate
+php artisan migrate:fresh --seed
 yarn
 ```
+
+*`--seed` on migrate is optional if you want to have sample data*
 
 ### Prerequisites
 
