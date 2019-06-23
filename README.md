@@ -9,7 +9,7 @@ There are many different topsite applications out there, but none that are open 
 First step is the clone the repo
 
 ```
-git clone git@github.com:1e4/topsite.git
+git clone git@github.com:pbbg/topsite.git
 ```
 
 Copying and editing the `.env` is next, user accounts require verification so SMTP is also needed, we recommend [MailGun](mailgun.com).
@@ -52,11 +52,11 @@ We use PHPUnit for tests
 ## Built With
 
 * [Laravel](http://laravel.com) - The web framework used
-* [SB Admin 2](https://startbootstrap.com/themes/sb-admin-2/) - Dependency Management
+* [SB Admin 2](https://startbootstrap.com/themes/sb-admin-2/) - Front end template for the administration panel
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/pbbg/topsites/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -64,7 +64,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Ian Milliken** - *Initial work* - [GitHub](https://github.com/1e4)
+* **Ian Milliken** - *Initial work* - [GitHub](https://github.com/1e4) [Twitter](https://twitter.com/1e4_)
 * **WaveHack** - *Initial work* - [GitHub](https://github.com/WaveHack) [Twitter](https://twitter.com/WaveHack)
 
 ## License
