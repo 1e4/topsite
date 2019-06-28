@@ -68,7 +68,7 @@ class ListingController extends Controller
                 ->where('created_at', '<', $newDate)
                 ->count();
 
-            $data[] = $count > 0 ? $count : mt_rand(5,500);
+            $data[] = $count;
 
             $carbon = $newDate;
         }
@@ -92,7 +92,7 @@ class ListingController extends Controller
                 ->where('created_at', '<', $newDate)
                 ->count();
 
-            $data[] = $count > 0 ? $count : mt_rand(5,500);
+            $data[] = $count;
 
             $carbon = $newDate;
         }
