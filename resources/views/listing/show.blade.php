@@ -4,7 +4,7 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="card-title">
-                <h2>{{ $game->name }}</h2>
+                <h2>{{ $game->name }} @if(auth()->user() && $game->created_by === auth()->user()->id) <span class="float-right"><a href="{{ route('front.game.edit', $game) }}" class="btn btn-info">Edit</a> </span> @endif</h2>
                 <h4 class="text-muted"><a href="{{ $game->url }}">{{ $game->url }}</a></h4>
             </div>
 

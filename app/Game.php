@@ -47,11 +47,6 @@ class Game extends Model
             ->whereType('out');
     }
 
-    public function setCreatedBy($value)
-    {
-        $this->attributes['created_by'] = auth()->user() ? auth()->user()->id : null;
-    }
-
     public function sluggable(): array
     {
         return [

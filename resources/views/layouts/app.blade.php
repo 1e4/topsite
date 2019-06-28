@@ -57,6 +57,15 @@
                                            href="{{ route('admin.home') }}">{{ __('Administration') }}</a>
                                     </li>
                                 @endif
+
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           href="{{ route('front.game.create') }}">{{ __('Submit Game') }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           href="{{ route('front.game.index') }}">{{ __('Manage Games') }}</a>
+                                    </li>
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -13,7 +13,7 @@ class CreateGameRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->isAdmin();
+        return auth()->user();
     }
 
     /**
