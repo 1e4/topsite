@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Game;
 use App\Http\Requests\CreateGameRequest;
+use App\ImageUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -35,12 +36,21 @@ class GameController extends Controller
 
     public function store(CreateGameRequest $request): RedirectResponse
     {
+
         $game = new Game();
         $game->fill($request->all('name', 'url', 'description', 'category_id'));
         $game->is_pending = true;
         $game->is_premium = false;
         $game->uuid = \Str::uuid();
         $game->save();
+
+        if($request->has('images'))
+        {
+            ImageUpload::whereIn('filename', $request->input('images'))->each(function($image) use($game) {
+                $image->game_id = $game->id;
+                $image->save();
+            });
+        }
 
         flash('Game has been created, please wait while it is approved')->success();
 
@@ -53,8 +63,20 @@ class GameController extends Controller
         $categories = [];
         $categories[] = "-- Select Category --";
         $categories = array_merge($categories, Category::all()->pluck('name')->toArray());
+        $images = ImageUpload::where('game_id', $game->id)->get();
 
-        return view('games.edit', compact('game', 'categories'));
+        $imageCache = [];
+
+        foreach($images as $image)
+        {
+            $img['name'] = $image->filename; //get the filename in array
+            $img['size'] = filesize(public_path('images/' . $image->filename)); //get the flesize in array
+            $imageCache[] = $img; // copy it to another array
+        }
+
+        $images = $imageCache;
+
+        return view('games.edit', compact('game', 'categories', 'images'));
     }
 
     public function update(CreateGameRequest $request, Game $game): RedirectResponse
@@ -64,10 +86,18 @@ class GameController extends Controller
         $game->is_premium = false;
         $game->save();
 
+        if($request->has('images'))
+        {
+            ImageUpload::whereIn('filename', $request->input('images'))->each(function($image) use($game) {
+                $image->game_id = $game->id;
+                $image->save();
+            });
+        }
+
         flash('Game has been updated')->success();
 
         return redirect()
-            ->route('front.game.show', $game);
+            ->route('front.game.edit', $game);
     }
 
     public function destroy(Game $game): RedirectResponse

@@ -55,6 +55,10 @@ Route::group([
     Route::get('/account/password', 'AccountController@getPassword')
         ->name('account.password');
 
+    Route::get('/image/upload','ImageUploadController@fileCreate');
+    Route::post('/image/upload/store','ImageUploadController@fileStore');
+    Route::post('/image/delete','ImageUploadController@fileDestroy');
+
     Route::group([
         'middleware' => [
             'admin'
