@@ -22,22 +22,23 @@ Route::get('/category/{category}', 'ListingCategoryController@show')
 Route::get('/listing/{listing}', 'ListingController@show')
     ->name('front.listing.show');
 
-Route::resource('game', 'GameController')
-->names([
-    'index' =>  'front.game.index',
-    'create' =>  'front.game.create',
-    'store' =>  'front.game.store',
-    'show' =>  'front.game.show',
-    'edit' =>  'front.game.edit',
-    'update' =>  'front.game.update',
-    'destroy' =>  'front.game.destroy',
-]);
-
 Route::group([
     'middleware' => [
         'verified'
     ]
 ], function () {
+
+    Route::resource('game', 'GameController')
+        ->names([
+            'index' =>  'front.game.index',
+            'create' =>  'front.game.create',
+            'store' =>  'front.game.store',
+            'show' =>  'front.game.show',
+            'edit' =>  'front.game.edit',
+            'update' =>  'front.game.update',
+            'destroy' =>  'front.game.destroy',
+        ]);
+    
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/account', 'AccountController@index')
