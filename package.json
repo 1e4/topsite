@@ -19,7 +19,7 @@
         "jquery": "3.4.1",
         "jquery.easing": "^1.4.1",
         "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.5",
+        "lodash": "^4.17.13",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
