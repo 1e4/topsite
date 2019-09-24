@@ -96,6 +96,12 @@
             </div>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('settings.edit') }}">
+                <i class="fas fa-fw fa-cogs"></i>
+                <span>Settings</span></a>
+        </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 

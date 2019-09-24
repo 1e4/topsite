@@ -30,15 +30,15 @@ Route::group([
 
     Route::resource('game', 'GameController')
         ->names([
-            'index' =>  'front.game.index',
-            'create' =>  'front.game.create',
-            'store' =>  'front.game.store',
-            'show' =>  'front.game.show',
-            'edit' =>  'front.game.edit',
-            'update' =>  'front.game.update',
-            'destroy' =>  'front.game.destroy',
+            'index' => 'front.game.index',
+            'create' => 'front.game.create',
+            'store' => 'front.game.store',
+            'show' => 'front.game.show',
+            'edit' => 'front.game.edit',
+            'update' => 'front.game.update',
+            'destroy' => 'front.game.destroy',
         ]);
-    
+
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/account', 'AccountController@index')
@@ -56,9 +56,9 @@ Route::group([
     Route::get('/account/password', 'AccountController@getPassword')
         ->name('account.password');
 
-    Route::get('/image/upload','ImageUploadController@fileCreate');
-    Route::post('/image/upload/store','ImageUploadController@fileStore');
-    Route::post('/image/delete','ImageUploadController@fileDestroy');
+    Route::get('/image/upload', 'ImageUploadController@fileCreate');
+    Route::post('/image/upload/store', 'ImageUploadController@fileStore');
+    Route::post('/image/delete', 'ImageUploadController@fileDestroy');
 
     Route::group([
         'middleware' => [
@@ -80,6 +80,12 @@ Route::group([
         ], function () {
 
         });
+
+        Route::get('settings', 'SettingsController@showSettings')
+            ->name('settings.edit');
+
+        Route::put('settings', 'SettingsController@updateSettings')
+            ->name('settings.update');
 
         Route::get('category/datatables', 'CategoryController@datatables')
             ->name('category.datatables');
