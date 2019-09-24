@@ -18,7 +18,7 @@ class CreateImageUploadsTable extends Migration
             $table->bigInteger('owner_id')->unsigned();
             $table->text('filename');
             $table->text("original_name");
-            $table->integer('game_id')->unsigned();
+            $table->bigInteger('game_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('owner_id')
