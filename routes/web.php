@@ -11,6 +11,11 @@
 |
 */
 
+
+Auth::routes([
+    'verify' => true
+]);
+
 Route::group([
     'middleware' => [
         'site_online'
@@ -18,10 +23,6 @@ Route::group([
 ], function () {
 
     Route::get('/', 'ListingHomeController@index');
-
-    Auth::routes([
-        'verify' => true
-    ]);
 
     Route::get('/category/{category}', 'ListingCategoryController@show')
         ->name('front.category.show');

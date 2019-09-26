@@ -29,9 +29,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
         Game::observe(GameObserver::class);
 
-        View::share('title', Settings::where('key', 'site_name')->first()->value);
+        View::composer([
+            'layouts/admin.blade.php',
+            'layouts/app.blade.php',
+        ], function($view) {
+            $view->share('title', Settings::where('key', 'site_name')->first()->value);
+        });
 
     }
 }
