@@ -76,18 +76,6 @@ Route::group([
         ], function () {
             Route::get('/', 'HomeController@getHome')->name('admin.home');
 
-            Route::group([
-                'prefix' => 'categories'
-            ], function () {
-
-            });
-
-            Route::group([
-                'prefix' => 'users'
-            ], function () {
-
-            });
-
             Route::get('settings', 'SettingsController@showSettings')
                 ->name('settings.edit');
 
@@ -101,6 +89,12 @@ Route::group([
             Route::get('game/datatables', 'GameController@datatables')
                 ->name('game.datatables');
             Route::resource('game', 'GameController');
+
+            Route::post('game/approve/{game}', 'GameController@approveGame')
+                ->name('game.approve');
+
+            Route::post('game/reject/{game}', 'GameController@rejectGame')
+                ->name('game.reject');
 
             Route::get('user/datatables', 'UserController@datatables')
                 ->name('user.datatables');

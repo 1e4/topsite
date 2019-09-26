@@ -32,6 +32,15 @@ class GameController extends Controller
     public function datatables(): JsonResponse
     {
         $games = Game::query();
+
+        if(request()->has('filter'))
+        {
+            if(request()->query('filter') === 'pending-review')
+            {
+                $games->where('is_pending', 1);
+            }
+        }
+
         return DataTables::of($games)
             ->addColumn('action', function ($game) {
                 $route = route('game.edit', $game);
@@ -109,7 +118,6 @@ class GameController extends Controller
     public function update(CreateGameRequest $request, Game $game): RedirectResponse
     {
         $game->fill($request->all('name', 'url', 'description', 'category_id'));
-        $game->is_pending = $request->has('is_pending') ? false : true;
         $game->is_premium = $request->has('is_premium');
         $game->save();
 
@@ -133,5 +141,24 @@ class GameController extends Controller
         flash('Game has been deleted')->success();
 
         return redirect()->route('game.index');
+    }
+
+    public function approveGame(Game $game) {
+        $game->is_pending = false;
+        $game->save();
+
+        flash("Game has been approved");
+
+        return redirect()->route('game.show', $game);
+
+    }
+
+    public function rejectGame(Game $game) {
+        $game->is_pending = true;
+        $game->save();
+
+        flash("Game has been rejected")->success();
+
+        return redirect()->route('game.show', $game);
     }
 }

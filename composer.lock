@@ -4,8 +4,53 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d725a14db56d0c2e5840f8212be8843a",
+    "content-hash": "dff004aaa27b5da7c93170bced93577c",
     "packages": [
+        {
+            "name": "ccaglayan/discord-webhooks-php",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ccaglayan/discord-webhooks-php.git",
+                "reference": "48f592c12b7dd6d8e704233452a6ab64971f19dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ccaglayan/discord-webhooks-php/zipball/48f592c12b7dd6d8e704233452a6ab64971f19dc",
+                "reference": "48f592c12b7dd6d8e704233452a6ab64971f19dc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DiscordWebhooksPHP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Unlicense"
+            ],
+            "authors": [
+                {
+                    "name": "Çağlar Çağlayan",
+                    "email": "c.caglayan.cc@gmail.com"
+                }
+            ],
+            "description": "A simple Discord webhook client library.",
+            "homepage": "https://github.com/ccaglayan/discord-webhooks-php",
+            "keywords": [
+                "discord",
+                "discordapp",
+                "library",
+                "php",
+                "webhooks"
+            ],
+            "time": "2018-12-21T14:36:44+00:00"
+        },
         {
             "name": "cocur/slugify",
             "version": "v3.2",

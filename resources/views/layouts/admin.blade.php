@@ -73,7 +73,7 @@
                     <a class="collapse-item" href="{{ route('game.index') }}">Overview</a>
                     <a class="collapse-item" href="{{ route('game.create') }}">Add Game</a>
                     <a class="collapse-item" href="{{ route('game.index', [
-                    'filter'    =>  'pendingreview'
+                    'filter'    =>  'pending-review'
                     ]) }}">Games Pending Review</a>
                 </div>
             </div>

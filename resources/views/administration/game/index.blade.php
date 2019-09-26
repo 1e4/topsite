@@ -41,7 +41,9 @@
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('game.datatables') !!}',
+                ajax: '{!! route('game.datatables', [
+                    'filter'    =>  request()->query('filter')
+                ]) !!}',
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
