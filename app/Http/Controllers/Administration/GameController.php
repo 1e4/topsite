@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Administration;
 use App\Category;
 use App\Game;
 use App\Http\Requests\CreateGameRequest;
+use App\Jobs\SendGameApprovalHookToDiscord;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
@@ -33,10 +33,8 @@ class GameController extends Controller
     {
         $games = Game::query();
 
-        if(request()->has('filter'))
-        {
-            if(request()->query('filter') === 'pending-review')
-            {
+        if (request()->has('filter')) {
+            if (request()->query('filter') === 'pending-review') {
                 $games->where('is_pending', 1);
             }
         }
@@ -44,9 +42,10 @@ class GameController extends Controller
         return DataTables::of($games)
             ->addColumn('action', function ($game) {
                 $route = route('game.edit', $game);
-                return '<a href="'. $route .'" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
+                return '<a href="' . $route . '" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
             })->make(true);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -64,7 +63,7 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreateGameRequest $request): RedirectResponse
@@ -85,7 +84,7 @@ class GameController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Game $game): View
@@ -96,7 +95,7 @@ class GameController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Game $game): View
@@ -111,8 +110,8 @@ class GameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(CreateGameRequest $request, Game $game): RedirectResponse
@@ -143,22 +142,26 @@ class GameController extends Controller
         return redirect()->route('game.index');
     }
 
-    public function approveGame(Game $game) {
+    public function approveGame(Game $game)
+    {
         $game->is_pending = false;
         $game->save();
 
+        SendGameApprovalHookToDiscord::dispatch($game);
+
         flash("Game has been approved");
 
-        return redirect()->route('game.show', $game);
+        return redirect()->route('game.edit', $game);
 
     }
 
-    public function rejectGame(Game $game) {
+    public function rejectGame(Game $game)
+    {
         $game->is_pending = true;
         $game->save();
 
         flash("Game has been rejected")->success();
 
-        return redirect()->route('game.show', $game);
+        return redirect()->route('game.edit', $game);
     }
 }
