@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Category;
 use App\Game;
 use App\Observers\GameObserver;
 use App\Settings;
@@ -31,13 +32,5 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Game::observe(GameObserver::class);
-
-        View::composer([
-            'layouts/admin.blade.php',
-            'layouts/app.blade.php',
-        ], function($view) {
-            $view->share('title', Settings::where('key', 'site_name')->first()->value);
-        });
-
     }
 }
