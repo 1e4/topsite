@@ -10,6 +10,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
 {
+
+    use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
@@ -40,13 +43,6 @@ class LoginTest extends TestCase
 
     public function testLoginSucceeds()
     {
-        $user = new User();
-        $user->email = 'test@test.com';
-        $user->name = 'Test';
-        $user->password = bcrypt('password');
-        $user->email_verified_at = Carbon::now();
-        $user->save();
-
         $res = $this->post('/login', [
             'email' => 'test@test.com',
             'password' => 'password'
