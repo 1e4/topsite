@@ -26,6 +26,7 @@ Route::group([
 
     Route::get('/category/{category}', 'ListingCategoryController@show')
         ->name('front.category.show');
+
     Route::get('/listing/{listing}', 'ListingController@show')
         ->name('front.listing.show');
 
