@@ -8,7 +8,7 @@ return [
     'site_online'  =>  [
         'validation'    =>  'sometimes|required|boolean',
         'type'          =>  'boolean',
-        'default'       =>  'true'
+        'default'       =>  '1'
     ],
     'discord_webhook'   =>  [
         'validation'    =>  'sometimes|nullable|url',
