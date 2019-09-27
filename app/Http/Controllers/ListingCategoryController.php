@@ -10,7 +10,6 @@ class ListingCategoryController extends Controller
 {
     public function show($category)
     {
-
         $currentCategory = Category::whereSlug($category)->first();
 
         $listings = Game::where('category_id', $currentCategory->id)
