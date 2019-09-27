@@ -13,6 +13,6 @@ $factory->define(\App\Game::class, function (Faker $faker) {
         'description'   =>  $faker->realText($faker->numberBetween(200,300)),
         'is_premium'    =>  mt_rand(1,5) == 1 ? true : false,
         'is_pending'    =>  0,
-        'category_id'  =>  \App\Category::all()->random()->first()->id,
+        'category_id'  =>  \App\Category::all()->random()->id,
     ];
 });
