@@ -104,11 +104,11 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <div class="nav flex-column">
+                        <nav class="nav flex-column nav-category">
                             @foreach($categories as $category)
-                                <a href="{{ route('front.category.show', $category->slug) }}">{{ $category->name }}</a>
+                                <a href="{{ route('front.category.show', $category->slug) }}" class="nav-link @if($category->slug === ($currentCategory->slug ?? '')) active @endif">{{ $category->name }}</a>
                             @endforeach
-                        </div>
+                        </nav>
                     </div>
                 </div>
             </div>

@@ -23,3 +23,14 @@
     }
   }
 }
+
+nav.nav-category {
+    a.active {
+        background-color: $gray-300;
+        color: darken($link-color, 40%)
+    }
+
+    a:hover {
+        background-color: $gray-200;
+    }
+}
