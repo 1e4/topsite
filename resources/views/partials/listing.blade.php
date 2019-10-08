@@ -9,15 +9,16 @@
     <div class="container">
         <div class="row">
             <div class="col-1 d-flex align-items-center">#{{ $key + 1 }}</div>
-            @if($listing->banner)
-                <div class="col-12">
-                    <div class="listing-banner"></div>
-                </div>
-            @endif
             <div class="col-7">
+
+                @if($listing->banner_image)
+                    <div class="listing-banner">
+                        <img src="{{ asset('images/' . $listing->banner_image) }}" style="max-height: 60px; max-width: 470px" />
+                    </div>
+                @endif
                 <div class="listing-header">
                     <a href="{{ $listing->url }}" class="link-above-block-absolute">
-                        <h3>{{ $listing->name }}</h3>
+                        <h5 class="mb-0">{{ $listing->name }}</h5>
                     </a>
                 </div>
                 {{ $listing->description }}
