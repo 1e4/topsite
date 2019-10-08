@@ -11,11 +11,7 @@
         </div>
         <div class="card-body dropzone-form">
             {!! \Form::open()->route('front.game.update', [$game])->fill($game)->put() !!}
-            {!! \Form::text('name', 'Name') !!}
-            {!! \Form::text('url', 'Url') !!}
-            {!! \Form::textarea('description', 'Description') !!}
-            {!! \Form::select('category_id', 'Category', $categories, $game->category->id) !!}
-            @include('partials.dropzone')
+            @include('games.form')
             {!! \Form::submit('Update Game') !!}
             {!! \Form::close() !!}
         </div>

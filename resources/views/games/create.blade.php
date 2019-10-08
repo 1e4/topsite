@@ -10,11 +10,7 @@
         </div>
         <div class="card-body dropzone-form">
             {!! \Form::open()->route('front.game.store') !!}
-            {!! \Form::text('name', 'Name') !!}
-            {!! \Form::text('url', 'Url') !!}
-            {!! \Form::textarea('description', 'Description') !!}
-            {!! \Form::select('category_id', 'Category', $categories) !!}
-            @include('partials.dropzone')
+            @include('games.form')
             {!! \Form::submit('Add Game') !!}
             {!! \Form::close() !!}
         </div>
