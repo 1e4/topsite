@@ -31,7 +31,7 @@ class ImageUploadController extends Controller
     {
         $filename = $request->get('filename');
         $image = ImageUpload::where('filename', $filename)
-            ->orWhere('original_filename', $filename);
+            ->orWhere('original_name', $filename);
 
         if (!\Auth::user()->is_admin) {
             $image->where('owner_id', \Auth::user()->id);
