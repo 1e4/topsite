@@ -20,7 +20,7 @@ class ImageUploadController extends Controller
 
         $imageUpload = new ImageUpload();
         $imageUpload->filename = $imageName;
-        $imageUpload->original_filename = $image->getClientOriginalName();
+        $imageUpload->original_name = $image->getClientOriginalName();
         $imageUpload->owner_id = \Auth::user()->id;
         $imageUpload->save();
 
