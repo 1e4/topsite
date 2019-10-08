@@ -30,6 +30,11 @@ class Game extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function images(): HasMany
+    {
+        return $this->hasMany(ImageUpload::class, 'game_id', 'id');
+    }
+
     public function scopeFindBySlug($query, $slug): Game
     {
         return $query->whereSlug($slug)->firstOrFail();
