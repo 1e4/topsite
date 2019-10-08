@@ -14,6 +14,7 @@ class ListingCategoryController extends Controller
 
         $listings = Game::where('category_id', $currentCategory->id)
             ->where('is_pending', false)
+            ->orderBy('votes_in', 'desc')
             ->paginate(50);
 
         return view('home', compact('currentCategory', 'listings'));
