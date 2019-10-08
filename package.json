@@ -28,6 +28,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "dropzone": "^5.5.1"
+        "dropzone": "^5.5.1",
+        "lightbox2": "^2.11.1"
     }
 }

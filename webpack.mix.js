@@ -32,4 +32,5 @@ mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/js')
     .copy('node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js', 'public/js/admin')
     .copy('node_modules/datatables.net/js/jquery.dataTables.min.js', 'public/js/admin')
     .copy('node_modules/dropzone/dist/min/dropzone.min.js', 'public/js')
+    .copy('node_modules/lightbox2/dist/js/lightbox.min.js', 'public/js')
     .version();

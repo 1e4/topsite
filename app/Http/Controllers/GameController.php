@@ -42,6 +42,16 @@ class GameController extends Controller
         $game->is_pending = true;
         $game->is_premium = false;
         $game->uuid = \Str::uuid();
+
+        if($request->has('banner_image'))
+        {
+            $banner = $request->file('banner_image');
+            $imageName = md5($banner->getClientOriginalName() . time()) . '.' . $banner->getClientOriginalExtension();
+            $banner->move(public_path('images'), $imageName);
+
+            $game->banner_image = $imageName;
+        }
+
         $game->save();
 
         if($request->has('images'))
@@ -84,6 +94,25 @@ class GameController extends Controller
         $game->fill($request->all('name', 'url', 'description', 'category_id'));
         $game->is_pending = true;
         $game->is_premium = false;
+
+        if($request->has('banner_image'))
+        {
+            if($game->banner_image !== null) {
+                // Remove old banner image
+                $path = public_path() . '/images/' . $game->banner_image;
+
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+
+            $banner = $request->file('banner_image');
+            $imageName = md5($banner->getClientOriginalName() . time()) . '.' . $banner->getClientOriginalExtension();
+            $banner->move(public_path('images'), $imageName);
+
+            $game->banner_image = $imageName;
+        }
+
         $game->save();
 
         if($request->has('images'))

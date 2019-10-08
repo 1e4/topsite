@@ -21,7 +21,7 @@ class CreateTableGames extends Migration
             $table->string('name');
             $table->string('url');
             $table->text('description');
-            $table->string('banner_url')->nullable();
+            $table->string('banner_image')->nullable();
             $table->boolean('is_pending')->default(false);
             $table->boolean('is_premium')->default(false);
             $table->bigInteger('votes_in')->default(0);

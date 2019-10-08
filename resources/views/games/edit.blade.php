@@ -10,7 +10,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Editing Game {{ $game->name }}</h6>
         </div>
         <div class="card-body dropzone-form">
-            {!! \Form::open()->route('front.game.update', [$game])->fill($game)->put() !!}
+            {!! \Form::open()->route('front.game.update', [$game])->fill($game)->put()->multipart() !!}
             @include('games.form')
             {!! \Form::submit('Update Game') !!}
             {!! \Form::close() !!}
