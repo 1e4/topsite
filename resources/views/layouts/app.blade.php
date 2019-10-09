@@ -91,6 +91,12 @@
                                         </div>
                                     </li>
                                 @endguest
+
+
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="{{ route('front.contact') }}">{{ __('Contact') }}</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

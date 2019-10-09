@@ -30,6 +30,12 @@ Route::group([
     Route::get('/listing/{listing}', 'ListingController@show')
         ->name('front.listing.show');
 
+    Route::get('contact', 'ContactController@index')
+        ->name('front.contact');
+
+    Route::post('contact', 'ContactController@store')
+        ->name('front.contact.store');
+
     Route::group([
         'middleware' => [
             'verified'
@@ -101,6 +107,17 @@ Route::group([
                 ->name('user.datatables');
             Route::resource('user', 'UserController');
 
+            Route::get('contact/datatables', 'ContactController@datatables')
+                ->name('contact.datatables');
+
+            Route::get('contact', 'ContactController@index')
+                ->name('contact.index');
+
+            Route::get('contact/{contact}', 'ContactController@show')
+                ->name('contact.show');
+
+            Route::put('contact/{contact}', 'ContactController@update')
+                ->name('contact.update');
 
         });
     });
