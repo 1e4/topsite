@@ -118,6 +118,7 @@ class GameController extends Controller
     {
         $game->fill($request->all('name', 'url', 'description', 'category_id'));
         $game->is_premium = $request->has('is_premium');
+        $game->slug = null;
         $game->save();
 
         flash('Game has been updated')->success();

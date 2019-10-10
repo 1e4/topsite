@@ -94,6 +94,7 @@ class GameController extends Controller
         $game->fill($request->all('name', 'url', 'description', 'category_id'));
         $game->is_pending = true;
         $game->is_premium = false;
+        $game->slug = null;
 
         if($request->has('banner_image'))
         {
