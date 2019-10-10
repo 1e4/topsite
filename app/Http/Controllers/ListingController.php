@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Game;
+use App\Vote;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -104,6 +105,14 @@ class ListingController extends Controller
         $hide_sidebar = true;
 
         $listing = Game::findBySlug($slug);
+
+        $vote = Vote::firstOrNew([
+            'listing_id'    =>  $listing->id,
+            'voter_ip'      =>  request()->ip(),
+            'vote_type'     =>  Vote::VOTE_OUT
+        ]);
+
+        $vote->save();
 
         return view('listing.out', compact('listing', 'hide_sidebar'));
     }

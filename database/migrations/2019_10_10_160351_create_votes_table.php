@@ -4,23 +4,23 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVotes extends Migration
+class CreateVotesTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('votes', static function (Blueprint $table) {
+        Schema::create('votes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->ipAddress('ip');
-            $table->tinyInteger('type');
-            $table->bigInteger('game_id')->unsigned();
+            $table->bigInteger('listing_id')->unsigned();
+            $table->tinyInteger('vote_type');
+            $table->ipAddress('voter_ip');
             $table->timestamps();
 
-            $table->foreign('game_id')
+            $table->foreign('listing_id')
                 ->references('id')
                 ->on('games');
         });
@@ -31,7 +31,7 @@ class CreateVotes extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('votes');
     }
