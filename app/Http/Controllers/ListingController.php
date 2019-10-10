@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Game;
+use App\Http\Requests\VoteIn;
 use App\Vote;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -115,5 +117,29 @@ class ListingController extends Controller
         $vote->save();
 
         return view('listing.out', compact('listing', 'hide_sidebar'));
+    }
+
+    public function in($slug): View {
+        $listing = Game::findBySlug($slug);
+
+        return view('listing.in', compact('listing'));
+    }
+
+    public function vote(VoteIn $in, $slug): RedirectResponse {
+
+        $listing = Game::findBySlug($slug);
+
+        $vote = Vote::firstOrNew([
+            'listing_id'    =>  $listing->id,
+            'voter_ip'      =>  request()->ip(),
+            'vote_type'     =>  Vote::VOTE_IN
+        ]);
+
+        $vote->save();
+
+        flash("Your vote has been submitted for {$listing->name}")->success();
+
+        return redirect('/');
+
     }
 }

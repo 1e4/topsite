@@ -39,6 +39,12 @@ Route::group([
     Route::get('out/{listing}', 'ListingController@out')
         ->name('listing.out');
 
+    Route::get('in/{listing}', 'ListingController@in')
+        ->name('listing.in');
+
+    Route::post('in/{listing}', 'ListingController@vote')
+        ->name('listing.vote');
+
     Route::group([
         'middleware' => [
             'verified'
