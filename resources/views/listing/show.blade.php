@@ -6,7 +6,7 @@
             <div class="card-title">
                 @if($game->banner_image !== null)
                     <div class="text-center mb-3">
-                        <img src="{{ asset('images/' . $game->banner_image) }}" class="img-fluid" style="max-height: 60px;" />
+                        <img src="{{ asset('images/uploads/' . $game->banner_image) }}" class="img-fluid" style="max-height: 60px;" />
                     </div>
                 @endif
                 <h2>{{ $game->name }} @if(auth()->user() && $game->created_by === auth()->user()->id) <span class="float-right"><a href="{{ route('front.game.edit', $game) }}" class="btn btn-info">Edit</a> </span> @endif</h2>
@@ -26,8 +26,8 @@
 
             <div class="text-center">
                 @foreach($game->images as $image)
-                    <a href="{{ asset('images/' . $image->filename) }}" data-lightbox="screenshots">
-                        <img src="{{ asset('images/' . $image->filename) }}" class="img-fluid" style="max-height: 90px; max-width: 150px;" />
+                    <a href="{{ asset('images/uploads/' . $image->filename) }}" data-lightbox="screenshots">
+                        <img src="{{ asset('images/uploads/' . $image->filename) }}" class="img-fluid" style="max-height: 90px; max-width: 150px;" />
                     </a>
                 @endforeach
             </div>

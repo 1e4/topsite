@@ -20,7 +20,7 @@
                         mockFile = {name: '{{$image['name']}}', size: {{ $image['size'] }} }; // here we get the file name and size as response
 
                     thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-                    thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "/images/" + '{{ $image['name'] }}');//uploadsfolder is the folder where you have all those uploaded files
+                    thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "/images/uploads/" + '{{ $image['name'] }}');//uploadsfolder is the folder where you have all those uploaded files
                     thisDropzone.emit("complete", mockFile);
 
                     @endforeach

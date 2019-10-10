@@ -47,7 +47,7 @@ class GameController extends Controller
         {
             $banner = $request->file('banner_image');
             $imageName = md5($banner->getClientOriginalName() . time()) . '.' . $banner->getClientOriginalExtension();
-            $banner->move(public_path('images'), $imageName);
+            $banner->move(public_path('images/uploads'), $imageName);
 
             $game->banner_image = $imageName;
         }
@@ -80,7 +80,7 @@ class GameController extends Controller
         foreach($images as $image)
         {
             $img['name'] = $image->filename; //get the filename in array
-            $img['size'] = filesize(public_path('images/' . $image->filename)); //get the flesize in array
+            $img['size'] = filesize(public_path('images/uploads/' . $image->filename)); //get the flesize in array
             $imageCache[] = $img; // copy it to another array
         }
 
@@ -100,7 +100,7 @@ class GameController extends Controller
         {
             if($game->banner_image !== null) {
                 // Remove old banner image
-                $path = public_path() . '/images/' . $game->banner_image;
+                $path = public_path() . '/images/uploads/' . $game->banner_image;
 
                 if (file_exists($path)) {
                     unlink($path);
@@ -109,7 +109,7 @@ class GameController extends Controller
 
             $banner = $request->file('banner_image');
             $imageName = md5($banner->getClientOriginalName() . time()) . '.' . $banner->getClientOriginalExtension();
-            $banner->move(public_path('images'), $imageName);
+            $banner->move(public_path('images/uploads'), $imageName);
 
             $game->banner_image = $imageName;
         }

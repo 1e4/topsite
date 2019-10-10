@@ -16,7 +16,7 @@ class ImageUploadController extends Controller
     {
         $image = $request->file('file');
         $imageName = md5($image->getClientOriginalName() . time()) . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images'), $imageName);
+        $image->move(public_path('images/uploads'), $imageName);
 
         $imageUpload = new ImageUpload();
         $imageUpload->filename = $imageName;
@@ -39,7 +39,7 @@ class ImageUploadController extends Controller
 
         $image->delete();
 
-        $path = public_path() . '/images/' . $filename;
+        $path = public_path() . '/images/uploads' . $filename;
         if (file_exists($path)) {
             unlink($path);
         }

@@ -15,7 +15,7 @@
 
                 @if($listing->banner_image && $listing->is_premium)
                     <div class="listing-banner">
-                        <img src="{{ asset('images/' . $listing->banner_image) }}" style="max-height: 60px; max-width: 470px" />
+                        <img src="{{ asset('images/uploads/' . $listing->banner_image) }}" style="max-height: 60px; max-width: 470px" />
                     </div>
                 @endif
                 <div class="listing-header">
