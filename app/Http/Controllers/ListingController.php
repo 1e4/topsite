@@ -99,4 +99,12 @@ class ListingController extends Controller
 
         return $data;
     }
+
+    public function out($slug): View {
+        $hide_sidebar = true;
+
+        $listing = Game::findBySlug($slug);
+
+        return view('listing.out', compact('listing', 'hide_sidebar'));
+    }
 }

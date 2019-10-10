@@ -36,6 +36,9 @@ Route::group([
     Route::post('contact', 'ContactController@store')
         ->name('front.contact.store');
 
+    Route::get('out/{listing}', 'ListingController@out')
+        ->name('listing.out');
+
     Route::group([
         'middleware' => [
             'verified'
