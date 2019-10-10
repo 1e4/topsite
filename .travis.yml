@@ -1,0 +1,24 @@
+dist: trusty
+
+language: php
+
+php:
+  - "7.3"
+
+addons:
+  mariadb: '10.0'
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+before_script:
+  - cp .env.travis .env
+  - mysql -e 'create database testing;' -u root
+  - composer self-update
+  - composer install --no-interaction
+
+script:
+  - php artisan key:generate
+  - php artisan migrate:fresh
+  - vendor/bin/phpunit

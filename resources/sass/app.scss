@@ -1,0 +1,38 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@import '~lightbox2/dist/css/lightbox.min.css';
+
+@import "shared";
+
+.listing {
+  background: $gray-200;
+  position: relative;
+
+  &.listing-premium {
+    border: 1px solid gold;
+    background: $gray-100;
+  }
+  .listing-header {
+    a {
+
+    }
+  }
+}
+
+nav.nav-category {
+    a.active {
+        background-color: $gray-300;
+        color: darken($link-color, 40%)
+    }
+
+    a:hover {
+        background-color: $gray-200;
+    }
+}
