@@ -38,7 +38,7 @@ class GameController extends Controller
     {
 
         $game = new Game();
-        $game->fill($request->all('name', 'url', 'description', 'category_id'));
+        $game->fill($request->all('name', 'url', 'description', 'category_id', 'callback_url'));
         $game->is_pending = true;
         $game->is_premium = false;
         $game->uuid = \Str::uuid();
@@ -91,7 +91,7 @@ class GameController extends Controller
 
     public function update(CreateGameRequest $request, Game $game): RedirectResponse
     {
-        $game->fill($request->all('name', 'url', 'description', 'category_id'));
+        $game->fill($request->all('name', 'url', 'description', 'category_id', 'callback_url'));
         $game->is_pending = true;
         $game->is_premium = false;
         $game->slug = null;
@@ -124,7 +124,7 @@ class GameController extends Controller
             });
         }
 
-        flash('Game has been updated')->success();
+        flash('Game has been updated, it must now be re approved')->success();
 
         return redirect()
             ->route('front.game.edit', $game);

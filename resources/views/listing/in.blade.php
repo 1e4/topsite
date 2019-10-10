@@ -20,6 +20,10 @@
             {!! NoCaptcha::display() !!}
         </div>
 
+        @if(request()->username)
+            {!! Form::hidden('username', request()->username) !!}
+        @endif
+
         {!! Form::submit('Vote for ' . $listing->name) !!}
 
         {!! Form::close() !!}

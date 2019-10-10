@@ -45,6 +45,7 @@ Route::group([
     Route::post('in/{listing}', 'ListingController@vote')
         ->name('listing.vote');
 
+
     Route::group([
         'middleware' => [
             'verified'

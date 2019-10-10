@@ -38,6 +38,7 @@
             {!! \Form::open()->route('game.update', [$game])->fill($game)->put() !!}
             {!! \Form::text('name', 'Name') !!}
             {!! \Form::text('url', 'Url') !!}
+            {!! \Form::text('callback_url', 'Callback Url For Voting') !!}
             {!! \Form::textarea('description', 'Description') !!}
             {!! \Form::select('category_id', 'Category', $categories, $game->category->id) !!}
             {!! \Form::checkbox('is_premium', 'Is Premium', 1) !!}

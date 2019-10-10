@@ -18,6 +18,7 @@ class Game extends Model
         'category_id',
         'is_pending',
         'is_premium',
+        'callback_url'
     ];
 
     protected $casts = [

@@ -6,6 +6,7 @@ use App\Game;
 use App\Http\Requests\VoteIn;
 use App\Vote;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -128,6 +129,22 @@ class ListingController extends Controller
     public function vote(VoteIn $in, $slug): RedirectResponse {
 
         $listing = Game::findBySlug($slug);
+
+        // @todo move this to a job because it takes a few seconds to work if it fails
+        if($listing->callback_url) {
+            try {
+                $client = new Client([
+                    'timeout'   =>  3
+                ]);
+                $client->post($listing->callback_url, [
+                    'query' =>  [
+                        'ip'    =>  request()->ip(),
+                        'username'  =>  request()->input('username', 'null')
+                    ]
+                ]);
+            } catch(\Exception $exception) {
+            }
+        }
 
         $vote = Vote::firstOrNew([
             'listing_id'    =>  $listing->id,

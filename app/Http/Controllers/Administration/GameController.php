@@ -69,7 +69,7 @@ class GameController extends Controller
     public function store(CreateGameRequest $request): RedirectResponse
     {
         $game = new Game();
-        $game->fill($request->all('name', 'url', 'description', 'category_id'));
+        $game->fill($request->all('name', 'url', 'description', 'category_id', 'callback_url'));
         $game->is_pending = $request->has('is_pending') ? false : true;
         $game->is_premium = $request->has('is_premium');
         $game->uuid = \Str::uuid();
@@ -116,7 +116,7 @@ class GameController extends Controller
      */
     public function update(CreateGameRequest $request, Game $game): RedirectResponse
     {
-        $game->fill($request->all('name', 'url', 'description', 'category_id'));
+        $game->fill($request->all('name', 'url', 'description', 'category_id', 'callback_url'));
         $game->is_premium = $request->has('is_premium');
         $game->slug = null;
         $game->save();

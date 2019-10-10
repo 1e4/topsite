@@ -34,6 +34,10 @@
                     <td>{{ $game->url }}<a href="{{ $game->url }}" target="_blank" rel="nofollow">(open)</a></td>
                 </tr>
                 <tr>
+                    <td>Callback Url</td>
+                    <td>{{ $game->callback_url }}</td>
+                </tr>
+                <tr>
                     <td>Category</td>
                     <td><a href="{{ route('category.show', $game->category->id) }}">{{ $game->category->name }}</a></td>
                 </tr>

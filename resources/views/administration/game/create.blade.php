@@ -16,6 +16,7 @@
             {!! \Form::open()->route('game.store') !!}
             {!! \Form::text('name', 'Name') !!}
             {!! \Form::text('url', 'Url') !!}
+            {!! \Form::text('callback_url', 'Callback Url For Voting') !!}
             {!! \Form::textarea('description', 'Description') !!}
             {!! \Form::select('category_id', 'Category', $categories) !!}
             {!! \Form::submit('Add Game') !!}
