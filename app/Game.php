@@ -42,14 +42,14 @@ class Game extends Model
 
     public function scopeVotesIn($query): HasMany
     {
-        return $this->hasMany(Vote::class, 'id', 'game_id')
-            ->whereType('in');
+        return $this->hasMany(Vote::class, 'listing_id', 'id')
+            ->whereVoteType(Vote::VOTE_IN);
     }
 
     public function scopeVotesOut($query): HasMany
     {
-        return $this->hasMany(Vote::class, 'id', 'game_id')
-            ->whereType('out');
+        return $this->hasMany(Vote::class, 'listing_id', 'id')
+            ->whereVoteType(Vote::VOTE_OUT);
     }
 
     public function sluggable(): array
