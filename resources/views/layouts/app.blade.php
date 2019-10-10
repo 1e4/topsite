@@ -106,7 +106,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-3 py-4">
+            @if(($hide_sidebar ?? false) === false)<div class="col-3 py-4">
                 <div class="card">
 
                     <div class="card-body">
@@ -118,7 +118,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9">
+            @endif
+            <div class="@if(($hide_sidebar ?? false) === false) col-9 @else col-12 @endif">
                 <main class="py-4">
                     @if(auth()->user())
                         @if(!auth()->user()->email_verified_at && request()->route()->getName() !== 'verification.notice')
