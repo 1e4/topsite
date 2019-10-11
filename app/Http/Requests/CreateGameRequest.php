@@ -42,7 +42,7 @@ class CreateGameRequest extends FormRequest
             ],
             'category_id'  =>  [
                 'required',
-                'exists:categories,id'
+                'exists:categories,slug'
             ],
             'callback_url'  =>  [
                 'nullable',
