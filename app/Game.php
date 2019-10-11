@@ -6,6 +6,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Game extends Model
 {
@@ -51,6 +52,11 @@ class Game extends Model
     {
         return $this->hasMany(Vote::class, 'listing_id', 'id')
             ->whereVoteType(Vote::VOTE_OUT);
+    }
+
+    public function scopeApproved($query): Builder
+    {
+        return $query->where('is_pending', false);
     }
 
     public function sluggable(): array

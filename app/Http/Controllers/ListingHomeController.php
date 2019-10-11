@@ -10,7 +10,7 @@ class ListingHomeController extends Controller
 {
     public function index(): View
     {
-        $listings = Game::where('is_pending', false)
+        $listings = Game::approved()
             ->orderBy('votes_in', 'desc')
             ->paginate(50);
 

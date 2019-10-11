@@ -13,7 +13,7 @@ class ListingCategoryController extends Controller
         $currentCategory = Category::whereSlug($category)->first();
 
         $listings = Game::where('category_id', $currentCategory->id)
-            ->where('is_pending', false)
+            ->approved()
             ->orderBy('votes_in', 'desc')
             ->paginate(50);
 
