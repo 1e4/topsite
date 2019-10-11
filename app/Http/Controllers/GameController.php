@@ -12,7 +12,8 @@ use Illuminate\View\View;
 
 class GameController extends Controller
 {
-    public function index(): View {
+    public function index(): View
+    {
 
         $games = Game::where('created_by', auth()->user()->id)
             ->get();
@@ -20,10 +21,11 @@ class GameController extends Controller
         return view('games.index', compact('games'));
     }
 
-    public function create(): View {
+    public function create(): View
+    {
         $categories = [];
-        $categories[] = "-- Select Category --";
-        $categories = array_merge($categories, Category::all()->pluck('name')->toArray());
+        $categories[0] = "-- Select Category --";
+        $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
 
         return view('games.create', compact('categories'));
     }
@@ -43,8 +45,7 @@ class GameController extends Controller
         $game->is_premium = false;
         $game->uuid = \Str::uuid();
 
-        if($request->has('banner_image'))
-        {
+        if ($request->has('banner_image')) {
             $banner = $request->file('banner_image');
             $imageName = md5($banner->getClientOriginalName() . time()) . '.' . $banner->getClientOriginalExtension();
             $banner->move(public_path('images/uploads'), $imageName);
@@ -54,9 +55,8 @@ class GameController extends Controller
 
         $game->save();
 
-        if($request->has('images'))
-        {
-            ImageUpload::whereIn('filename', $request->input('images'))->each(function($image) use($game) {
+        if ($request->has('images')) {
+            ImageUpload::whereIn('filename', $request->input('images'))->each(function ($image) use ($game) {
                 $image->game_id = $game->id;
                 $image->save();
             });
@@ -68,17 +68,18 @@ class GameController extends Controller
             ->route('front.game.index');
     }
 
-    public function edit(Game $game): View {
+    public function edit(Game $game): View
+    {
 
         $categories = [];
-        $categories[] = "-- Select Category --";
-        $categories = array_merge($categories, Category::all()->pluck('name')->toArray());
+        $categories[0] = "-- Select Category --";
+        $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
+
         $images = ImageUpload::where('game_id', $game->id)->get();
 
         $imageCache = [];
 
-        foreach($images as $image)
-        {
+        foreach ($images as $image) {
             $img['name'] = $image->filename; //get the filename in array
             $img['size'] = filesize(public_path('images/uploads/' . $image->filename)); //get the flesize in array
             $imageCache[] = $img; // copy it to another array
@@ -96,9 +97,8 @@ class GameController extends Controller
         $game->is_premium = false;
         $game->slug = null;
 
-        if($request->has('banner_image'))
-        {
-            if($game->banner_image !== null) {
+        if ($request->has('banner_image')) {
+            if ($game->banner_image !== null) {
                 // Remove old banner image
                 $path = public_path() . '/images/uploads/' . $game->banner_image;
 
@@ -116,9 +116,8 @@ class GameController extends Controller
 
         $game->save();
 
-        if($request->has('images'))
-        {
-            ImageUpload::whereIn('filename', $request->input('images'))->each(function($image) use($game) {
+        if ($request->has('images')) {
+            ImageUpload::whereIn('filename', $request->input('images'))->each(function ($image) use ($game) {
                 $image->game_id = $game->id;
                 $image->save();
             });

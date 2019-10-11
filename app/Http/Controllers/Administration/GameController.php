@@ -54,8 +54,8 @@ class GameController extends Controller
     public function create(): View
     {
         $categories = [];
-        $categories[] = "-- Select Category --";
-        $categories = array_merge($categories, Category::all()->pluck('name')->toArray());
+        $categories[0] = "-- Select Category --";
+        $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
 
         return view('administration.game.create', compact('categories'));
     }
@@ -101,8 +101,8 @@ class GameController extends Controller
     public function edit(Game $game): View
     {
         $categories = [];
-        $categories[] = "-- Select Category --";
-        $categories = array_merge($categories, Category::all()->pluck('name')->toArray());
+        $categories[0] = "-- Select Category --";
+        $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
 
         return view('administration.game.edit', compact('game', 'categories'));
     }
