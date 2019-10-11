@@ -18,5 +18,6 @@ class HomePageTest extends BaseTest
         $response = $this->get('/');
 
         $response->assertStatus(200);
+        $response->assertSee('#1');
     }
 }
