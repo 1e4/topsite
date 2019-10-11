@@ -21,18 +21,6 @@ class AdministrateGamesTest extends BaseTest
     }
 
     /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testExample()
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
-
-    /**
      * Confirm the job to send approval to Discord is fired off
      *
      * @return void
