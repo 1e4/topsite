@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ae5e97d7d5e02aedd8361e138cb0d65",
+    "content-hash": "e0c9396c2fa769d1b5eeda7b186c65a0",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -110,6 +110,58 @@
                 "webhooks"
             ],
             "time": "2018-12-21T14:36:44+00:00"
+        },
+        {
+            "name": "clarification/sparkpost-laravel-driver",
+            "version": "1.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/clarification/sparkpost-laravel-driver.git",
+                "reference": "85ba3c5f996fc3adc08ded5f3f849108eb2c5673"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/clarification/sparkpost-laravel-driver/zipball/85ba3c5f996fc3adc08ded5f3f849108eb2c5673",
+                "reference": "85ba3c5f996fc3adc08ded5f3f849108eb2c5673",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": ">=5.0",
+                "illuminate/container": ">=5.0",
+                "swiftmailer/swiftmailer": "~5.1||~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Clarification\\MailDrivers\\Sparkpost\\SparkpostServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Clarification\\MailDrivers\\Sparkpost\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robin Lidbetter",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Sparkpost mail driver for Laravel",
+            "homepage": "http://clarification.io",
+            "keywords": [
+                "driver",
+                "laravel",
+                "mail",
+                "sparkpost"
+            ],
+            "time": "2019-09-26T17:03:11+00:00"
         },
         {
             "name": "cocur/slugify",
