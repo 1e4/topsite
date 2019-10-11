@@ -54,7 +54,7 @@ class GameController extends Controller
     public function create(): View
     {
         $categories = [];
-        $categories[0] = "-- Select Category --";
+        $categories["none__"] = "-- Select Category --";
         $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
 
         return view('administration.game.create', compact('categories'));
@@ -68,11 +68,14 @@ class GameController extends Controller
      */
     public function store(CreateGameRequest $request): RedirectResponse
     {
+        $category = Category::findBySlug($request->input('category_id'));
+
         $game = new Game();
-        $game->fill($request->all('name', 'url', 'description', 'category_id', 'callback_url'));
+        $game->fill($request->all('name', 'url', 'description', 'callback_url'));
         $game->is_pending = $request->has('is_pending') ? false : true;
         $game->is_premium = $request->has('is_premium');
         $game->uuid = \Str::uuid();
+        $game->category_id = $category->id;
         $game->save();
 
         flash('Game has been created')->success();
@@ -101,7 +104,7 @@ class GameController extends Controller
     public function edit(Game $game): View
     {
         $categories = [];
-        $categories[0] = "-- Select Category --";
+        $categories["none__"] = "-- Select Category --";
         $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
 
         return view('administration.game.edit', compact('game', 'categories'));
@@ -116,8 +119,11 @@ class GameController extends Controller
      */
     public function update(CreateGameRequest $request, Game $game): RedirectResponse
     {
-        $game->fill($request->all('name', 'url', 'description', 'category_id', 'callback_url'));
+        $category = Category::findBySlug($request->input('category_id'));
+
+        $game->fill($request->all('name', 'url', 'description', 'callback_url'));
         $game->is_premium = $request->has('is_premium');
+        $game->category_id = $category->id;
         $game->slug = null;
         $game->save();
 

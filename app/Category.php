@@ -11,6 +11,12 @@ class Category extends Model
 
     protected $fillable = ['name'];
 
+
+    public function scopeFindBySlug($query, $slug): Category
+    {
+        return $query->whereSlug($slug)->firstOrFail();
+    }
+
     public function sluggable(): array
     {
         return [

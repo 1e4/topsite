@@ -24,7 +24,7 @@ class GameController extends Controller
     public function create(): View
     {
         $categories = [];
-        $categories[0] = "-- Select Category --";
+        $categories["none__"] = "-- Select Category --";
         $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
 
         return view('games.create', compact('categories'));
@@ -39,10 +39,13 @@ class GameController extends Controller
     public function store(CreateGameRequest $request): RedirectResponse
     {
 
+        $category = Category::findBySlug($request->input('category_id'));
+
         $game = new Game();
         $game->fill($request->all('name', 'url', 'description', 'category_id', 'callback_url'));
         $game->is_pending = true;
         $game->is_premium = false;
+        $game->category_id = $category->id;
         $game->uuid = \Str::uuid();
 
         if ($request->has('banner_image')) {
@@ -72,7 +75,7 @@ class GameController extends Controller
     {
 
         $categories = [];
-        $categories[0] = "-- Select Category --";
+        $categories["none__"] = "-- Select Category --";
         $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
 
         $images = ImageUpload::where('game_id', $game->id)->get();
@@ -92,10 +95,13 @@ class GameController extends Controller
 
     public function update(CreateGameRequest $request, Game $game): RedirectResponse
     {
+        $category = Category::findBySlug($request->input('category_id'));
+
         $game->fill($request->all('name', 'url', 'description', 'category_id', 'callback_url'));
         $game->is_pending = true;
         $game->is_premium = false;
         $game->slug = null;
+        $game->category_id = $category->id;
 
         if ($request->has('banner_image')) {
             if ($game->banner_image !== null) {
