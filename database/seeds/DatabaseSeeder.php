@@ -11,11 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(UsersTableSeeder::class);
-         $this->call(SettingsSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(SettingsSeeder::class);
 
-        foreach(config('categories') as $categoryName)
-        {
+        foreach (config('categories') as $categoryName) {
             $category = new \App\Category();
             $category->name = $categoryName;
             $category->save();
