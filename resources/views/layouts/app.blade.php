@@ -125,7 +125,7 @@
                 </div>
             </div>
             @endif
-            <div class="@if(($hide_sidebar ?? false) === false) col-9 @else col-12 @endif">
+            <div class="@if(($hide_sidebar ?? false) === false) col-12 col-lg-9 @else col-12 @endif">
                 <main class="py-4">
                     @if(auth()->user())
                         @if(!auth()->user()->email_verified_at && request()->route()->getName() !== 'verification.notice')
