@@ -99,6 +99,9 @@ Route::group([
             Route::put('settings', 'SettingsController@updateSettings')
                 ->name('settings.update');
 
+            Route::put('settings/seo', 'SettingsController@updateSEO')
+                ->name('settings.seo.update');
+
             Route::get('category/datatables', 'CategoryController@datatables')
                 ->name('category.datatables');
             Route::resource('category', 'CategoryController');

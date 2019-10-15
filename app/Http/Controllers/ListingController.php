@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Game;
 use App\Http\Requests\VoteIn;
 use App\Vote;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
@@ -15,6 +16,9 @@ class ListingController extends Controller
 {
     public function show($listing): View {
         $game = Game::findBySlug($listing);
+
+        SEOTools::setTitle($game->name);
+        SEOTools::setDescription($game->description);
 
         list($votesIn, $votesOut) = $this->buildCharts($game);
 
@@ -146,15 +150,21 @@ class ListingController extends Controller
             }
         }
 
-        $vote = Vote::firstOrNew([
+        $vote = Vote::where('created_at', '>', now()->startOfDay())->firstOrNew([
             'listing_id'    =>  $listing->id,
             'voter_ip'      =>  request()->ip(),
             'vote_type'     =>  Vote::VOTE_IN
         ]);
 
-        $vote->save();
+        if($vote->exists)
+            flash('You have already voted for this site today')->error();
+        else
+        {
+            $vote->save();
 
-        flash("Your vote has been submitted for {$listing->name}")->success();
+            flash("Your vote has been submitted for {$listing->name}")->success();
+        }
+
 
         return redirect('/');
 
