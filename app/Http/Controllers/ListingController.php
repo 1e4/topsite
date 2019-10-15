@@ -146,15 +146,21 @@ class ListingController extends Controller
             }
         }
 
-        $vote = Vote::firstOrNew([
+        $vote = Vote::where('created_at', '>', now()->startOfDay())->firstOrNew([
             'listing_id'    =>  $listing->id,
             'voter_ip'      =>  request()->ip(),
             'vote_type'     =>  Vote::VOTE_IN
         ]);
 
-        $vote->save();
+        if($vote->exists)
+            flash('You have already voted for this site today')->error();
+        else
+        {
+            $vote->save();
 
-        flash("Your vote has been submitted for {$listing->name}")->success();
+            flash("Your vote has been submitted for {$listing->name}")->success();
+        }
+
 
         return redirect('/');
 
