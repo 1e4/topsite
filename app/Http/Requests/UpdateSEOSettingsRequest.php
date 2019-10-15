@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateSettings extends FormRequest
+class UpdateSEOSettingsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class UpdateSettings extends FormRequest
     {
         $rules = [];
 
-        foreach(collect(config('settings'))->where('key', 'NOT LIKE', 'seo_%') as $setting => $option)
+        foreach(collect(config('settings'))->where('key', 'LIKE', 'seo_%') as $setting => $option)
         {
             $rules[$setting] = $option['validation'];
         }

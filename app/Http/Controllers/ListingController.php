@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Game;
 use App\Http\Requests\VoteIn;
 use App\Vote;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
@@ -15,6 +16,9 @@ class ListingController extends Controller
 {
     public function show($listing): View {
         $game = Game::findBySlug($listing);
+
+        SEOTools::setTitle($game->name);
+        SEOTools::setDescription($game->description);
 
         list($votesIn, $votesOut) = $this->buildCharts($game);
 
