@@ -1,6 +1,6 @@
 # Topsite Application
 
-[![Build Status](https://travis-ci.org/pbbg/topsite.svg?branch=develop)](https://travis-ci.org/1e4/topsite) [![Maintainability](https://api.codeclimate.com/v1/badges/8be22f945708dda410b6/maintainability)](https://codeclimate.com/github/pbbg/topsite/maintainability)[![Test Coverage](https://api.codeclimate.com/v1/badges/8be22f945708dda410b6/test_coverage)](https://codeclimate.com/github/pbbg/topsite/test_coverage)![Discord](https://img.shields.io/discord/339678952547287040?style=plastic)
+[![Build Status](https://travis-ci.org/pbbg/topsite.svg?branch=develop)](https://travis-ci.org/pbbg/topsite) [![Maintainability](https://api.codeclimate.com/v1/badges/8be22f945708dda410b6/maintainability)](https://codeclimate.com/github/pbbg/topsite/maintainability)[![Test Coverage](https://api.codeclimate.com/v1/badges/8be22f945708dda410b6/test_coverage)](https://codeclimate.com/github/pbbg/topsite/test_coverage)![Discord](https://img.shields.io/discord/339678952547287040?style=plastic)
 
 There are many different topsite applications out there, but none that are open source that have a range of features, we aim to address this, so whether it's a PBBG topsite, Minecraft topsite or any other topsite we aim to be to go solution
 
