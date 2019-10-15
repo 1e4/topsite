@@ -7,6 +7,7 @@ use App\Settings;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Artesaos\SEOTools\Facades\TwitterCard;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,18 +30,23 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $settings = Settings::where('key', 'like', 'seo_%')->get();
+        try {
 
-        config()->set('seotools.meta.defaults.title',
-            $settings->where('key', 'seo_title')->first()->value ?? config('app.name', 'TopSite'));
+            $settings = Settings::where('key', 'like', 'seo_%')->get();
 
-        SEOTools::setDescription($settings->where('key',
-                'seo_description')->first()->value ?? 'No description given');
+            config()->set('seotools.meta.defaults.title',
+                $settings->where('key', 'seo_title')->first()->value ?? config('app.name', 'TopSite'));
 
-        View::composer([
-            'layouts.app'
-        ], function ($view) {
-            $view->with('categories', Category::all());
-        });
+            SEOTools::setDescription($settings->where('key',
+                    'seo_description')->first()->value ?? 'No description given');
+
+            View::composer([
+                'layouts.app'
+            ], function ($view) {
+                $view->with('categories', Category::all());
+            });
+        } catch (QueryException $exception) {
+            // Not installed
+        }
     }
 }
