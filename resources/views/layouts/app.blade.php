@@ -28,12 +28,12 @@
                             {{ config('app.name', 'PBBG Topsite') }}
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                data-target="#mainNav" aria-controls="mainNav"
                                 aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                             <span class="navbar-toggler-icon"></span>
                         </button>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="collapse navbar-collapse" id="mainNav">
                             <!-- Left Side Of Navbar -->
                             <ul class="navbar-nav mr-auto">
 
@@ -106,20 +106,26 @@
     </div>
     <div class="container">
         <div class="row">
-            @if(($hide_sidebar ?? false) === false)<div class="col-3 py-4">
+            @if(($hide_sidebar ?? false) === false)<div class="col-sm-12 col-lg-3 py-4">
                 <div class="card">
-
                     <div class="card-body">
-                        <nav class="nav flex-column nav-category">
-                            @foreach($categories as $category)
-                                <a href="{{ route('front.category.show', $category->slug) }}" class="nav-link @if($category->slug === ($currentCategory->slug ?? '')) active @endif">{{ $category->name }}</a>
-                            @endforeach
+                        <nav class="nav flex-column navbar-expand-lg nav-category navbar-light text-left">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#categoryNav" aria-controls="categoryNav"
+                                    aria-expanded="false" aria-label="{{ __('Toggle categories') }}">
+                                <span class="navbar-toggler-icon"></span> Categories
+                            </button>
+                            <div class="collapse navbar-collapse flex-column" id="categoryNav">
+                                @foreach($categories as $category)
+                                    <a href="{{ route('front.category.show', $category->slug) }}" class="nav-link w-100 @if($category->slug === ($currentCategory->slug ?? '')) active @endif">{{ $category->name }}</a>
+                                @endforeach
+                            </div>
                         </nav>
                     </div>
                 </div>
             </div>
             @endif
-            <div class="@if(($hide_sidebar ?? false) === false) col-9 @else col-12 @endif">
+            <div class="@if(($hide_sidebar ?? false) === false) col-12 col-lg-9 @else col-12 @endif">
                 <main class="py-4">
                     @if(auth()->user())
                         @if(!auth()->user()->email_verified_at && request()->route()->getName() !== 'verification.notice')

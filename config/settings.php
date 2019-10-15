@@ -3,7 +3,7 @@ return [
     'site_name' =>  [
         'validation'    =>  'required|string|min:3|max:255',
         'type'          =>  'string',
-        'default'       =>  'PBBG Topite'
+        'default'       =>  'PBBG Topsite'
     ],
     'site_online'  =>  [
         'validation'    =>  'sometimes|required|boolean',

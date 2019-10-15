@@ -11,15 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UsersTableSeeder::class);
-        $this->call(SettingsSeeder::class);
-
-        foreach (config('categories') as $categoryName) {
-            $category = new \App\Category();
-            $category->name = $categoryName;
-            $category->save();
-        }
-
-        factory(\App\Game::class, 100)->create();
+         $this->call(UsersTableSeeder::class);
+         $this->call(SettingsSeeder::class);
+         $this->call(CategorySeeder::class);
+         $this->call(GameSeeder::class);
     }
 }
