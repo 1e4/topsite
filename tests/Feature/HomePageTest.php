@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Tests\BaseTest;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class HomePageTest extends TestCase
+class HomePageTest extends BaseTest
 {
     /**
      * A basic feature test example.
@@ -18,5 +18,6 @@ class HomePageTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
+        $response->assertSee('#1');
     }
 }

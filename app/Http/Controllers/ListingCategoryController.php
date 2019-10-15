@@ -16,7 +16,7 @@ class ListingCategoryController extends Controller
         SEOTools::setTitle($currentCategory->name);
 
         $listings = Game::where('category_id', $currentCategory->id)
-            ->where('is_pending', false)
+            ->approved()
             ->orderBy('votes_in', 'desc')
             ->paginate(50);
 

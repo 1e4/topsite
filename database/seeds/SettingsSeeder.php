@@ -11,7 +11,7 @@ class SettingsSeeder extends Seeder
      */
     public function run()
     {
-        foreach(config('settings') as $setting => $options) {
+        foreach (config('settings') as $setting => $options) {
             $s = new \App\Settings();
             $s->key = $setting;
             $s->value = $options['default'];

@@ -34,7 +34,7 @@ class CategoryController extends Controller
         return DataTables::of($categories)
             ->addColumn('action', function ($category) {
                 $route = route('category.edit', $category);
-                return '<a href="'. $route .'" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
+                return '<a href="' . $route . '" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
             })->make(true);
     }
 

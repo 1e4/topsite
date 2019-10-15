@@ -27,6 +27,7 @@ composer install
 php artisan key:generate
 php artisan migrate:fresh --seed
 yarn
+yarn prod (or yarn watch for development)
 ```
 
 *`--seed` on migrate is optional if you want to have sample data*

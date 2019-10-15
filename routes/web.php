@@ -131,8 +131,6 @@ Route::group([
 
             Route::put('contact/{contact}', 'ContactController@update')
                 ->name('contact.update');
-
         });
     });
-
 });

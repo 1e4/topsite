@@ -113,7 +113,7 @@ class GameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param CreateGameRequest $request
      * @param int $id
      * @return \Illuminate\Http\Response
      */
@@ -159,7 +159,6 @@ class GameController extends Controller
         flash("Game has been approved");
 
         return redirect()->route('game.edit', $game);
-
     }
 
     public function rejectGame(Game $game)
