@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administration;
 
 use App\Category;
+use App\Game;
 use App\Http\Requests\CreateCategoryRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -115,6 +116,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category): RedirectResponse
     {
+
+        Game::whereCategoryId($category->id)
+            ->update([
+                "category_id"   =>  null
+            ]);
+
         $category->delete();
 
         flash('Category has been deleted')->success();

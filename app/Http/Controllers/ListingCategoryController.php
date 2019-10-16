@@ -11,7 +11,7 @@ class ListingCategoryController extends Controller
 {
     public function show($category)
     {
-        $currentCategory = Category::whereSlug($category)->first();
+        $currentCategory = Category::whereSlug($category)->firstOrFail();
 
         SEOTools::setTitle($currentCategory->name);
 
