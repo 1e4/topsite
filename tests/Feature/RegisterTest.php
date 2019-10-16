@@ -8,14 +8,17 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterTest extends BaseTest
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testRegisterPageWorks()
+    public function testRegisterPageRedirectsWhenLoggedIn(): void {
+        $response = $this->get('register');
+
+        $response->assertStatus(302);
+    }
+
+    public function testRegisterPageWorks(): void
     {
-        $response = $this->get('/');
+        auth()->logout();
+
+        $response = $this->get('/register');
 
         $response->assertStatus(200);
     }

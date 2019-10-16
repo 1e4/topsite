@@ -26,6 +26,8 @@ class CategoryPageTest extends BaseTest
     {
         $response = $this->get('/category/space-games');
 
+//        dd($this->game);
+
         $response->assertStatus(200);
         $response->assertSee($this->game->name);
     }

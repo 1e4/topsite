@@ -40,13 +40,15 @@ class ViewServiceProvider extends ServiceProvider
             SEOTools::setDescription($settings->where('key',
                     'seo_description')->first()->value ?? 'No description given');
 
-            View::composer([
-                'layouts.app'
-            ], function ($view) {
-                $view->with('categories', Category::all());
-            });
         } catch (QueryException $exception) {
             // Not installed
         }
+
+
+        View::composer([
+            'layouts.app'
+        ], function ($view) {
+            $view->with('categories', Category::all());
+        });
     }
 }

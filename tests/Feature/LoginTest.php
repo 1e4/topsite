@@ -29,6 +29,14 @@ class LoginTest extends BaseTest
         $response->assertStatus(200);
     }
 
+    public function testLoginPageRedirectsWhenLoggedIn() {
+        Auth::loginUsingId(1);
+        $response = $this->get('/login');
+
+        $response->assertStatus(302);
+        Auth::logout();
+    }
+
     public function testLoginFailsOnEmptyFields()
     {
         $res = $this->post('/login');

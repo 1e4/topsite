@@ -17,10 +17,5 @@ class BaseTest extends TestCase
         Auth::loginUsingId($admin->id);
 
         $this->artisan('db:seed', ['--class' => 'SettingsSeeder']);
-        foreach (config('categories') as $categoryName) {
-            $category = new \App\Category();
-            $category->name = $categoryName;
-            $category->save();
-        }
     }
 }
