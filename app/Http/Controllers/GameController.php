@@ -8,20 +8,30 @@ use App\Http\Requests\CreateGameRequest;
 use App\ImageUpload;
 use App\Services\CategoryService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class GameController extends Controller
 {
+    /**
+     * Returns a list of all a user's games
+     *
+     * @return View
+     */
     public function index(): View
     {
-
         $games = Game::where('created_by', auth()->user()->id)
             ->get();
 
         return view('games.index', compact('games'));
     }
 
+    /**
+     * Shows the view to create a new game
+     *
+     * @param CategoryService $categoryService
+     *
+     * @return View
+     */
     public function create(CategoryService $categoryService): View
     {
         $categories = $categoryService->buildSelectArray();
@@ -29,15 +39,28 @@ class GameController extends Controller
         return view('games.create', compact('categories'));
     }
 
-    public function show($slug): RedirectResponse
+    /**
+     * Shows a listing based on slug
+     *
+     * @param String $slug
+     *
+     * @return RedirectResponse
+     */
+    public function show(String $slug): RedirectResponse
     {
         return redirect()
             ->route('front.listing.show', $slug);
     }
 
+    /**
+     * Stores a newly created game in the database
+     *
+     * @param CreateGameRequest $request
+     *
+     * @return RedirectResponse
+     */
     public function store(CreateGameRequest $request): RedirectResponse
     {
-
         $category = Category::findBySlug($request->input('category_id'));
 
         $game = new Game();
@@ -70,6 +93,14 @@ class GameController extends Controller
             ->route('front.game.index');
     }
 
+    /**
+     * Returns the view to edit an existing game
+     *
+     * @param Game $game
+     * @param CategoryService $categoryService
+     *
+     * @return View
+     */
     public function edit(Game $game, CategoryService $categoryService): View
     {
         $categories = $categoryService->buildSelectArray();
@@ -80,7 +111,7 @@ class GameController extends Controller
 
         foreach ($images as $image) {
             $img['name'] = $image->filename; //get the filename in array
-            $img['size'] = filesize(public_path('images/uploads/' . $image->filename)); //get the flesize in array
+            $img['size'] = filesize(public_path("images/uploads/{$image->filename}")); //get the flesize in array
             $imageCache[] = $img; // copy it to another array
         }
 
@@ -89,6 +120,14 @@ class GameController extends Controller
         return view('games.edit', compact('game', 'categories', 'images'));
     }
 
+    /**
+     * Updates an existing game in the database
+     *
+     * @param CreateGameRequest $request
+     * @param Game $game
+     *
+     * @return RedirectResponse
+     */
     public function update(CreateGameRequest $request, Game $game): RedirectResponse
     {
         $category = Category::findBySlug($request->input('category_id'));
@@ -125,12 +164,19 @@ class GameController extends Controller
             });
         }
 
-        flash('Game has been updated, it must now be re approved')->success();
+        flash('Game has been updated, it must now be re-approved')->success();
 
         return redirect()
             ->route('front.game.edit', $game);
     }
 
+    /**
+     * Removes a game from the database
+     *
+     * @param Game $game
+     *
+     * @return RedirectResponse
+     */
     public function destroy(Game $game): RedirectResponse
     {
         $game->delete();
