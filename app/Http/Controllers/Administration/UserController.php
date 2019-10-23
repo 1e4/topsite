@@ -8,7 +8,6 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
@@ -18,7 +17,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index(): View
     {
@@ -27,7 +26,7 @@ class UserController extends Controller
 
 
     /**
-     * @return mixed
+     * @return JsonResponse
      * @throws \Exception
      */
     public function datatables(): JsonResponse
@@ -36,13 +35,13 @@ class UserController extends Controller
         return DataTables::of($games)
             ->addColumn('action', function ($game) {
                 $route = route('user.edit', $game);
-                return '<a href="'. $route .'" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
+                return '<a href="' . $route . '" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> Edit</a>';
             })->make(true);
     }
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create(): View
     {
@@ -52,8 +51,8 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  CreateUserRequest  $request
+     * @return RedirectResponse
      */
     public function store(CreateUserRequest $request): RedirectResponse
     {
@@ -78,10 +77,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User  $user
+     * @return View
      */
-    public function show(User $user)
+    public function show(User $user): View
     {
         return view('administration.user.show', compact('user'));
     }
@@ -89,8 +88,8 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User  $user
+     * @return View
      */
     public function edit(User $user): View
     {
@@ -100,9 +99,9 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  EditUserRequest  $request
+     * @param  User  $user
+     * @return RedirectResponse
      */
     public function update(EditUserRequest $request, User $user): RedirectResponse
     {
