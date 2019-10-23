@@ -8,7 +8,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterTest extends BaseTest
 {
-    public function testRegisterPageRedirectsWhenLoggedIn(): void {
+    public function testRegisterPageRedirectsWhenLoggedIn(): void
+    {
         $response = $this->get('register');
 
         $response->assertStatus(302);

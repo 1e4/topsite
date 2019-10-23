@@ -11,19 +11,23 @@ use Illuminate\View\View;
 
 class AccountController extends Controller
 {
-    public function index(): View {
+    public function index(): View
+    {
         return view('account.index');
     }
 
-    public function getPassword(): View {
+    public function getPassword(): View
+    {
         return view('account.change-password');
     }
 
-    public function getEmail(): View {
+    public function getEmail(): View
+    {
         return view('account.change-email');
     }
 
-    public function updatePassword(UpdatePasswordRequest $passwordRequest): RedirectResponse {
+    public function updatePassword(UpdatePasswordRequest $passwordRequest): RedirectResponse
+    {
 
         $user = User::find(auth()->user()->id);
         $user->password = bcrypt($passwordRequest->new_password);
@@ -34,7 +38,8 @@ class AccountController extends Controller
         return back();
     }
 
-    public function updateEmail(UpdateEmailRequest $emailRequest) {
+    public function updateEmail(UpdateEmailRequest $emailRequest)
+    {
 
         $user = User::find(auth()->user()->id);
         $user->email = $emailRequest->email;

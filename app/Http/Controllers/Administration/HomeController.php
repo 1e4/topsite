@@ -42,7 +42,8 @@ class HomeController extends Controller
         ];
     }
 
-    private function getChartLabels(): array {
+    private function getChartLabels(): array
+    {
 
         $date = Carbon::now()->startOfDay()->subDays(30);
 
@@ -56,7 +57,8 @@ class HomeController extends Controller
         return $dates;
     }
 
-    private function getChartData(): array {
+    private function getChartData(): array
+    {
 
         $dates = $this->getChartLabels();
 
@@ -67,7 +69,6 @@ class HomeController extends Controller
         $games = Game::where("created_at", ">=", $carbon)->get();
 
         foreach ($dates as $date) {
-
             $newDate = $carbon->clone()->addDay()->endOfDay();
 
             $data[] = $games->where('created_at', '>=', $carbon)

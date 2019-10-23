@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Contact extends Model
 {
-    public function repliedBy(): HasOne {
+    public function repliedBy(): HasOne
+    {
         return $this->hasOne(User::class, 'id', 'replied_by');
     }
 }

@@ -60,8 +60,9 @@ class UserController extends Controller
         $user = new User();
         $user->fill($request->all('name', 'email'));
 
-        if($request->has('is_verified'))
+        if ($request->has('is_verified')) {
             $user->email_verified_at = Carbon::now();
+        }
 
         $user->is_admin = $request->has('is_admin');
 
@@ -107,13 +108,15 @@ class UserController extends Controller
     {
         $user->fill($request->all('name', 'email'));
 
-        if($request->has('is_verified'))
+        if ($request->has('is_verified')) {
             $user->email_verified_at = Carbon::now();
+        }
 
         $user->is_admin = $request->has('is_admin');
 
-        if($request->has('password'))
+        if ($request->has('password')) {
             $user->password = bcrypt('password');
+        }
 
         $user->save();
 

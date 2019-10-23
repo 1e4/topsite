@@ -14,7 +14,8 @@ use Illuminate\View\View;
 
 class ListingController extends Controller
 {
-    public function show($listing): View {
+    public function show($listing): View
+    {
         $game = Game::findBySlug($listing);
 
         SEOTools::setTitle($game->name);
@@ -46,7 +47,8 @@ class ListingController extends Controller
         ];
     }
 
-    private function getChartLabels(): array {
+    private function getChartLabels(): array
+    {
 
         $date = Carbon::now()->startOfDay()->subDays(30);
 
@@ -60,7 +62,8 @@ class ListingController extends Controller
         return $dates;
     }
 
-    private function getChartVotesInData(Game $game): array {
+    private function getChartVotesInData(Game $game): array
+    {
 
         $dates = $this->getChartLabels();
 
@@ -69,7 +72,6 @@ class ListingController extends Controller
         $data = [];
 
         foreach ($dates as $date) {
-
             $newDate = $carbon->clone()->addDay()->endOfDay();
 
             $count = $game->votesIn()->where('created_at', '>=', $carbon)
@@ -84,7 +86,8 @@ class ListingController extends Controller
         return $data;
     }
 
-    private function getChartVotesOutData(Game $game): array {
+    private function getChartVotesOutData(Game $game): array
+    {
 
         $dates = $this->getChartLabels();
 
@@ -93,7 +96,6 @@ class ListingController extends Controller
         $data = [];
 
         foreach ($dates as $date) {
-
             $newDate = $carbon->clone()->addDay()->endOfDay();
 
             $count = $game->votesOut()->where('created_at', '>=', $carbon)
@@ -108,7 +110,8 @@ class ListingController extends Controller
         return $data;
     }
 
-    public function out($slug): View {
+    public function out($slug): View
+    {
         $hide_sidebar = true;
 
         $listing = Game::findBySlug($slug);
@@ -124,18 +127,20 @@ class ListingController extends Controller
         return view('listing.out', compact('listing', 'hide_sidebar'));
     }
 
-    public function in($slug): View {
+    public function in($slug): View
+    {
         $listing = Game::findBySlug($slug);
 
         return view('listing.in', compact('listing'));
     }
 
-    public function vote(VoteIn $in, $slug): RedirectResponse {
+    public function vote(VoteIn $in, $slug): RedirectResponse
+    {
 
         $listing = Game::findBySlug($slug);
 
         // @todo move this to a job because it takes a few seconds to work if it fails
-        if($listing->callback_url) {
+        if ($listing->callback_url) {
             try {
                 $client = new Client([
                     'timeout'   =>  3
@@ -146,7 +151,7 @@ class ListingController extends Controller
                         'username'  =>  request()->input('username', 'null')
                     ]
                 ]);
-            } catch(\Exception $exception) {
+            } catch (\Exception $exception) {
             }
         }
 
@@ -156,10 +161,9 @@ class ListingController extends Controller
             'vote_type'     =>  Vote::VOTE_IN
         ]);
 
-        if($vote->exists)
+        if ($vote->exists) {
             flash('You have already voted for this site today')->error();
-        else
-        {
+        } else {
             $vote->save();
 
             flash("Your vote has been submitted for {$listing->name}")->success();

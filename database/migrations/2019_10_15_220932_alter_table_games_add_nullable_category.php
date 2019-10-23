@@ -13,7 +13,7 @@ class AlterTableGamesAddNullableCategory extends Migration
      */
     public function up()
     {
-        Schema::table('games', function(Blueprint $blueprint) {
+        Schema::table('games', function (Blueprint $blueprint) {
             $blueprint->bigInteger('category_id')->nullable()->unsigned()->change();
         });
     }
