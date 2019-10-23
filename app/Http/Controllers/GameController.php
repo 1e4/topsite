@@ -7,6 +7,7 @@ use App\Game;
 use App\Http\Requests\CreateGameRequest;
 use App\ImageUpload;
 use App\Services\CategoryService;
+use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -59,7 +60,7 @@ class GameController extends Controller
      *
      * @return RedirectResponse
      */
-    public function store(CreateGameRequest $request): RedirectResponse
+    public function store(CreateGameRequest $request, ImageService $imageService): RedirectResponse
     {
         $category = Category::findBySlug($request->input('category_id'));
 
@@ -72,7 +73,7 @@ class GameController extends Controller
 
         if ($request->has('banner_image')) {
             $banner = $request->file('banner_image');
-            $imageName = md5($banner->getClientOriginalName() . time()) . '.' . $banner->getClientOriginalExtension();
+            $imageName = $imageService->buildName($banner);
             $banner->move(public_path('images/uploads'), $imageName);
 
             $game->banner_image = $imageName;
@@ -128,7 +129,7 @@ class GameController extends Controller
      *
      * @return RedirectResponse
      */
-    public function update(CreateGameRequest $request, Game $game): RedirectResponse
+    public function update(CreateGameRequest $request, Game $game, ImageService $imageService): RedirectResponse
     {
         $category = Category::findBySlug($request->input('category_id'));
 
@@ -149,7 +150,7 @@ class GameController extends Controller
             }
 
             $banner = $request->file('banner_image');
-            $imageName = md5($banner->getClientOriginalName() . time()) . '.' . $banner->getClientOriginalExtension();
+            $imageName = $imageService->buildName($banner);
             $banner->move(public_path('images/uploads'), $imageName);
 
             $game->banner_image = $imageName;

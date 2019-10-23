@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ImageUpload;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
@@ -26,10 +27,10 @@ class ImageUploadController extends Controller
      *
      * @return JsonResponse
      */
-    public function fileStore(Request $request): JsonResponse
+    public function fileStore(Request $request, ImageService $imageService): JsonResponse
     {
         $image = $request->file('file');
-        $imageName = md5($image->getClientOriginalName() . time()) . '.' . $image->getClientOriginalExtension();
+        $imageName = $imageService->buildName($image);
         $image->move(public_path('images/uploads'), $imageName);
 
         $imageUpload = new ImageUpload();
