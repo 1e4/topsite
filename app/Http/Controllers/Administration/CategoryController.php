@@ -7,9 +7,7 @@ use App\Game;
 use App\Http\Requests\CreateCategoryRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
@@ -58,13 +56,7 @@ class CategoryController extends Controller
     public function store(CreateCategoryRequest $request)
     {
         $category = new Category();
-        $category->fill($request->all('name'));
-        $category->save();
-
-        flash('Category has been created')->success();
-
-        return redirect()
-            ->route('category.show', [$category]);
+        return $this->update($request, $category);
     }
 
     /**
@@ -116,11 +108,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category): RedirectResponse
     {
-
         Game::whereCategoryId($category->id)
-            ->update([
-                "category_id"   =>  null
-            ]);
+            ->update(['category_id' => null]);
 
         $category->delete();
 
