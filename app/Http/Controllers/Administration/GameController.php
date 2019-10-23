@@ -9,6 +9,7 @@ use App\Jobs\SendGameApprovalHookToDiscord;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
+use App\Services\CategoryService;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
@@ -51,11 +52,9 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(): View
+    public function create(CategoryService $categoryService): View
     {
-        $categories = [];
-        $categories["none__"] = "-- Select Category --";
-        $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
+        $categories = $categoryService->buildSelectArray();
 
         return view('administration.game.create', compact('categories'));
     }
@@ -101,11 +100,9 @@ class GameController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Game $game): View
+    public function edit(Game $game, CategoryService $categoryService): View
     {
-        $categories = [];
-        $categories["none__"] = "-- Select Category --";
-        $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
+        $categories = $categoryService->buildSelectArray();
 
         return view('administration.game.edit', compact('game', 'categories'));
     }

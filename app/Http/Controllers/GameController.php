@@ -6,6 +6,7 @@ use App\Category;
 use App\Game;
 use App\Http\Requests\CreateGameRequest;
 use App\ImageUpload;
+use App\Services\CategoryService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -21,11 +22,9 @@ class GameController extends Controller
         return view('games.index', compact('games'));
     }
 
-    public function create(): View
+    public function create(CategoryService $categoryService): View
     {
-        $categories = [];
-        $categories["none__"] = "-- Select Category --";
-        $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
+        $categories = $categoryService->buildSelectArray();
 
         return view('games.create', compact('categories'));
     }
@@ -71,12 +70,9 @@ class GameController extends Controller
             ->route('front.game.index');
     }
 
-    public function edit(Game $game): View
+    public function edit(Game $game, CategoryService $categoryService): View
     {
-
-        $categories = [];
-        $categories["none__"] = "-- Select Category --";
-        $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
+        $categories = $categoryService->buildSelectArray();
 
         $images = ImageUpload::where('game_id', $game->id)->get();
 
