@@ -20,7 +20,7 @@ class GameController extends Controller
      */
     public function index(): View
     {
-        $games = Game::where('created_by', auth()->user()->id)
+        $games = Game::where('created_by', auth()->id())
             ->get();
 
         return view('games.index', compact('games'));

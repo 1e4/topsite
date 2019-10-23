@@ -32,7 +32,7 @@ class ContactController extends Controller
         $form->email = auth()->user()->email ?? $contactForm->email;
         $form->subject = $contactForm->subject;
         $form->question = $contactForm->question;
-        $form->user_id = auth()->user()->id ?? null;
+        $form->user_id = auth()->id() ?? null;
         $form->save();
 
         flash('You query has been submitted, you will receive a reply by email')->success();

@@ -28,7 +28,7 @@ class ContactController extends Controller
     public function update(ReplyToEnquiry $enquiry, Contact $contact): RedirectResponse
     {
         $contact->reply = $enquiry->reply;
-        $contact->replied_by = auth()->user()->id;
+        $contact->replied_by = auth()->id();
         $contact->replied_at = new Carbon();
         $contact->save();
 

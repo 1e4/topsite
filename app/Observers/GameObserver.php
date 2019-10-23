@@ -8,6 +8,6 @@ class GameObserver
 {
     public function creating(Game $game)
     {
-        $game->created_by = auth()->user() ? auth()->user()->id : null;
+        $game->created_by = auth()->user() ? auth()->id() : null;
     }
 }
