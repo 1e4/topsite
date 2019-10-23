@@ -18,13 +18,12 @@ class GameController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index(): View
     {
         return view("administration.game.index");
     }
-
 
     /**
      * @return mixed
@@ -50,7 +49,7 @@ class GameController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create(CategoryService $categoryService): View
     {
@@ -62,8 +61,8 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param CreateGameRequest $request
+     * @return RedirectResponse
      */
     public function store(CreateGameRequest $request): RedirectResponse
     {
@@ -86,8 +85,8 @@ class GameController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Game $game
+     * @return View
      */
     public function show(Game $game): View
     {
@@ -97,8 +96,8 @@ class GameController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Game $game
+     * @return View
      */
     public function edit(Game $game, CategoryService $categoryService): View
     {
@@ -111,8 +110,8 @@ class GameController extends Controller
      * Update the specified resource in storage.
      *
      * @param CreateGameRequest $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Game $game
+     * @return RedirectResponse
      */
     public function update(CreateGameRequest $request, Game $game): RedirectResponse
     {
@@ -146,7 +145,14 @@ class GameController extends Controller
         return redirect()->route('game.index');
     }
 
-    public function approveGame(Game $game)
+    /**
+     * Approves a pending game submission
+     *
+     * @param Game $game
+     *
+     * @return RedirectResponse
+     */
+    public function approveGame(Game $game): RedirectResponse
     {
         $game->is_pending = false;
         $game->save();
@@ -158,7 +164,14 @@ class GameController extends Controller
         return redirect()->route('game.edit', $game);
     }
 
-    public function rejectGame(Game $game)
+    /**
+     * Rejects a pending game submission
+     *
+     * @param Game $game
+     *
+     * @return RedirectResponse
+     */
+    public function rejectGame(Game $game): RedirectResponse
     {
         $game->is_pending = true;
         $game->save();
