@@ -29,13 +29,11 @@ class ImageUploadController extends Controller
      */
     public function fileStore(Request $request, ImageService $imageService): JsonResponse
     {
-        $image = $request->file('file');
-        $imageName = $imageService->buildName($image);
-        $image->move(public_path('images/uploads'), $imageName);
+        $imageName = $imageService->buildAndMove($request, 'file');
 
         $imageUpload = new ImageUpload();
         $imageUpload->filename = $imageName;
-        $imageUpload->original_name = $image->getClientOriginalName();
+        $imageUpload->original_name = $request->file('file')->getClientOriginalName();
         $imageUpload->owner_id = \Auth::id();
         $imageUpload->save();
 

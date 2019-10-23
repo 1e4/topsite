@@ -72,9 +72,7 @@ class GameController extends Controller
         $game->uuid = \Str::uuid();
 
         if ($request->has('banner_image')) {
-            $banner = $request->file('banner_image');
-            $imageName = $imageService->buildName($banner);
-            $banner->move(public_path('images/uploads'), $imageName);
+            $imageName = $imageService->buildAndMove($request, 'banner_image');
 
             $game->banner_image = $imageName;
         }
@@ -140,9 +138,7 @@ class GameController extends Controller
                 }
             }
 
-            $banner = $request->file('banner_image');
-            $imageName = $imageService->buildName($banner);
-            $banner->move(public_path('images/uploads'), $imageName);
+            $imageName = $imageService->buildAndMove($request, 'banner_image');
 
             $game->banner_image = $imageName;
         }
