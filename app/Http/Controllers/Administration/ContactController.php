@@ -7,9 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ReplyToEnquiry;
 use App\Mail\Enquiry;
 use Carbon\Carbon;
-use Carbon\Laravel\ServiceProvider;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
@@ -21,15 +20,13 @@ class ContactController extends Controller
         return view('administration.contact.index');
     }
 
-    public function show(Contact $contact)
+    public function show(Contact $contact): View
     {
         return view('administration.contact.show', compact('contact'));
     }
 
-    public function update(ReplyToEnquiry $enquiry, Contact $contact)
+    public function update(ReplyToEnquiry $enquiry, Contact $contact): RedirectResponse
     {
-
-
         $contact->reply = $enquiry->reply;
         $contact->replied_by = auth()->user()->id;
         $contact->replied_at = new Carbon();
@@ -39,6 +36,7 @@ class ContactController extends Controller
             Mail::to($contact->email)
                 ->send(new Enquiry($contact));
         } catch (\Exception $exception) {
+            //
         }
 
         flash('Your reply has been sent')->success();
@@ -64,5 +62,4 @@ class ContactController extends Controller
                 return '<a href="' . $route . '" class="btn btn-xs btn-primary"><i class="fas fa-pen fa-sm text-white-50"></i> View</a>';
             })->make(true);
     }
-
 }
