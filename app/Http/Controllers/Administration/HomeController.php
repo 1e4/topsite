@@ -10,43 +10,36 @@ use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-
+    /**
+     * Returns the home view
+     *
+     * @return View
+     */
     public function getHome(): View
     {
-        list($gamesReleasedChartData, $gamesReleasedChartLabels) = $this->buildGamesReleasedChart();
-
-        $games = Game::all();
+        $gamesReleasedChartLabels = $this->getChartLabels();
+        $gamesReleasedChartData = $this->getChartData();
 
         $stats = [
-            'gamesTotal' => $games->count(),
+            'gamesTotal' => Game::count(),
             'votesIn' => 0,
             'votesOut' => 0,
             'users' => User::all()->count(),
-            'gamesPendingReview' => $games->where('is_pending', '=', true)->count(),
-            'goldMembership' => $games->where('is_premium', '=', true)->count(),
+            'gamesPendingReview' => Game::where('is_pending', '=', true)->count(),
+            'goldMembership' => Game::where('is_premium', '=', true)->count(),
         ];
 
         return view('administration.index', compact('gamesReleasedChartData', 'gamesReleasedChartLabels', 'stats'));
     }
 
-    private function buildGamesReleasedChart(): array
-    {
-
-        $gamesReleasedChartLabels = $this->getChartLabels();
-
-        $gamesReleasedChartData = $this->getChartData();
-
-        return [
-            $gamesReleasedChartData,
-            $gamesReleasedChartLabels
-        ];
-    }
-
+    /**
+     * Gets the labels for the chart
+     *
+     * @return array
+     */
     private function getChartLabels(): array
     {
-
         $date = Carbon::now()->startOfDay()->subDays(30);
-
         $dates = [];
 
         for ($i = 1; $i < 31; $i++) {
@@ -57,29 +50,27 @@ class HomeController extends Controller
         return $dates;
     }
 
+    /**
+     * Gets the data for the chart
+     *
+     * @return array
+     */
     private function getChartData(): array
     {
-
         $dates = $this->getChartLabels();
-
         $carbon = Carbon::now()->startOfDay()->subDays(30);
-
         $data = [];
-
-        $games = Game::where("created_at", ">=", $carbon)->get();
 
         foreach ($dates as $date) {
             $newDate = $carbon->clone()->addDay()->endOfDay();
 
-            $data[] = $games->where('created_at', '>=', $carbon)
+            $data[] = Game::where('created_at', '>=', $carbon)
                 ->where('created_at', '<', $newDate)
                 ->count();
 
             $carbon = $newDate;
         }
 
-
         return $data;
     }
-
 }
