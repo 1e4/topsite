@@ -51,9 +51,9 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateCategoryRequest $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function store(CreateCategoryRequest $request)
+    public function store(CreateCategoryRequest $request): RedirectResponse
     {
         $category = new Category();
         return $this->update($request, $category);
@@ -63,7 +63,7 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function show(Category $category): View
     {
@@ -74,7 +74,7 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function edit(Category $category): View
     {
@@ -86,9 +86,9 @@ class CategoryController extends Controller
      *
      * @param CreateCategoryRequest $request
      * @param Category $category
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function update(CreateCategoryRequest $request, Category $category)
+    public function update(CreateCategoryRequest $request, Category $category): RedirectResponse
     {
         $category->fill($request->all('name'));
         $category->save();
