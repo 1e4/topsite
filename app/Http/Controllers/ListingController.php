@@ -4,113 +4,42 @@ namespace App\Http\Controllers;
 
 use App\Game;
 use App\Http\Requests\VoteIn;
+use App\Services\ChartService;
 use App\Vote;
 use Artesaos\SEOTools\Facades\SEOTools;
-use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ListingController extends Controller
 {
-    public function show($listing): View
+    /**
+     * Shows the view for a specific listing
+     *
+     * @param String $listing
+     *
+     * @return View
+     */
+    public function show(String $listing, ChartService $chartService): View
     {
         $game = Game::findBySlug($listing);
 
         SEOTools::setTitle($game->name);
         SEOTools::setDescription($game->description);
 
-        list($votesIn, $votesOut) = $this->buildCharts($game);
+        list($votesIn, $votesOut) = $chartService->buildCharts($game);
 
         return view('listing.show', compact('game', 'votesIn', 'votesOut'));
     }
 
-
-    private function buildCharts(Game $game): array
-    {
-
-        $votesInLabels = $votesOutLabels = $this->getChartLabels();
-
-        $votesInData = $this->getChartVotesInData($game);
-        $votesOutData = $this->getChartVotesOutData($game);
-
-        return [
-            [
-                'labels'    =>  $votesInLabels,
-                'data'      =>  $votesInData
-            ],
-            [
-                'labels'    =>  $votesOutLabels,
-                'data'      =>  $votesOutData
-            ]
-        ];
-    }
-
-    private function getChartLabels(): array
-    {
-
-        $date = Carbon::now()->startOfDay()->subDays(30);
-
-        $dates = [];
-
-        for ($i = 1; $i < 31; $i++) {
-            $date->addDay();
-            $dates[] = $date->shortDayName . ' ' . $date->format("jS");
-        }
-
-        return $dates;
-    }
-
-    private function getChartVotesInData(Game $game): array
-    {
-
-        $dates = $this->getChartLabels();
-
-        $carbon = Carbon::now()->startOfDay()->subDays(30);
-
-        $data = [];
-
-        foreach ($dates as $date) {
-            $newDate = $carbon->clone()->addDay()->endOfDay();
-
-            $count = $game->votesIn()->where('created_at', '>=', $carbon)
-                ->where('created_at', '<', $newDate)
-                ->count();
-
-            $data[] = $count;
-
-            $carbon = $newDate;
-        }
-
-        return $data;
-    }
-
-    private function getChartVotesOutData(Game $game): array
-    {
-
-        $dates = $this->getChartLabels();
-
-        $carbon = Carbon::now()->startOfDay()->subDays(30);
-
-        $data = [];
-
-        foreach ($dates as $date) {
-            $newDate = $carbon->clone()->addDay()->endOfDay();
-
-            $count = $game->votesOut()->where('created_at', '>=', $carbon)
-                ->where('created_at', '<', $newDate)
-                ->count();
-
-            $data[] = $count;
-
-            $carbon = $newDate;
-        }
-
-        return $data;
-    }
-
-    public function out($slug): View
+    /**
+     * Log a vote out
+     *
+     * @param String $slug
+     *
+     * @return View
+     */
+    public function out(String $slug): View
     {
         $hide_sidebar = true;
 
@@ -127,16 +56,30 @@ class ListingController extends Controller
         return view('listing.out', compact('listing', 'hide_sidebar'));
     }
 
-    public function in($slug): View
+    /**
+     * Log a vote in
+     *
+     * @param String $slug
+     *
+     * @return View
+     */
+    public function in(String $slug): View
     {
         $listing = Game::findBySlug($slug);
 
         return view('listing.in', compact('listing'));
     }
 
-    public function vote(VoteIn $in, $slug): RedirectResponse
+    /**
+     * Lets a user vote
+     *
+     * @param VoteIn $in
+     * @param String $slug
+     *
+     * @return RedirectResponse
+     */
+    public function vote(VoteIn $in, String $slug): RedirectResponse
     {
-
         $listing = Game::findBySlug($slug);
 
         // @todo move this to a job because it takes a few seconds to work if it fails
@@ -152,6 +95,7 @@ class ListingController extends Controller
                     ]
                 ]);
             } catch (\Exception $exception) {
+                //
             }
         }
 
@@ -169,8 +113,6 @@ class ListingController extends Controller
             flash("Your vote has been submitted for {$listing->name}")->success();
         }
 
-
         return redirect('/');
-
     }
 }
