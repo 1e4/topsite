@@ -102,21 +102,12 @@ class GameController extends Controller
      *
      * @return View
      */
-    public function edit(Game $game, CategoryService $categoryService): View
+    public function edit(Game $game, CategoryService $categoryService, ImageService $imageService): View
     {
         $categories = $categoryService->buildSelectArray();
 
-        $images = ImageUpload::where('game_id', $game->id)->get();
-
-        $imageCache = [];
-
-        foreach ($images as $image) {
-            $img['name'] = $image->filename; //get the filename in array
-            $img['size'] = filesize(public_path("images/uploads/{$image->filename}")); //get the flesize in array
-            $imageCache[] = $img; // copy it to another array
-        }
-
-        $images = $imageCache;
+        $imageCollection = ImageUpload::where('game_id', $game->id)->get();
+        $images = $imageService->getBasics($imageCollection);
 
         return view('games.edit', compact('game', 'categories', 'images'));
     }
