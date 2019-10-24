@@ -14,6 +14,7 @@ class CategoryPageTest extends BaseTest
         parent::setUp();
         $this->game = factory('App\Game')->create([
             'category_id' => Category::where('name', 'Space Games')->first()->id,
+            'name' => "O'Kon Ltd",
         ]);
     }
 
@@ -26,6 +27,6 @@ class CategoryPageTest extends BaseTest
     {
         $response = $this->get('/category/space-games');
         $response->assertStatus(200);
-        $response->assertSee($this->game->name);
+        $response->assertSeeText(e($this->game->name));
     }
 }
