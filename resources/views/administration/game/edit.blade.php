@@ -40,7 +40,7 @@
             {!! \Form::text('url', 'Url') !!}
             {!! \Form::text('callback_url', 'Callback Url For Voting') !!}
             {!! \Form::textarea('description', 'Description') !!}
-            {!! \Form::select('category_id', 'Category', $categories, $game->category->slug) !!}
+            {!! \Form::select('category_id', 'Category', $categories, $game->category->slug ?? null) !!}
             {!! \Form::checkbox('is_premium', 'Is Premium', 1) !!}
             {!! \Form::submit('Update Game') !!}
             {!! \Form::close() !!}
