@@ -11,8 +11,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        foreach(config('categories') as $categoryName)
-        {
+        foreach (config('categories') as $categoryName) {
             $category = new \App\Category();
             $category->name = $categoryName;
             $category->save();

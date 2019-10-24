@@ -26,8 +26,7 @@ class UpdateSettings extends FormRequest
     {
         $rules = [];
 
-        foreach(collect(config('settings'))->where('key', 'NOT LIKE', 'seo_%') as $setting => $option)
-        {
+        foreach (collect(config('settings'))->where('key', 'NOT LIKE', 'seo_%') as $setting => $option) {
             $rules[$setting] = $option['validation'];
         }
 

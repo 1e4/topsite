@@ -31,7 +31,6 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         try {
-
             $settings = Settings::where('key', 'like', 'seo_%')->get();
 
             config()->set('seotools.meta.defaults.title',
@@ -39,7 +38,6 @@ class ViewServiceProvider extends ServiceProvider
 
             SEOTools::setDescription($settings->where('key',
                     'seo_description')->first()->value ?? 'No description given');
-
         } catch (QueryException $exception) {
             // Not installed
         }

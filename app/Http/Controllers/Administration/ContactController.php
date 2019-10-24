@@ -39,7 +39,6 @@ class ContactController extends Controller
             Mail::to($contact->email)
                 ->send(new Enquiry($contact));
         } catch (\Exception $exception) {
-
         }
 
         flash('Your reply has been sent')->success();

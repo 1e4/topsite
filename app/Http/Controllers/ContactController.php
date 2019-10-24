@@ -9,11 +9,13 @@ use Illuminate\View\View;
 
 class ContactController extends Controller
 {
-    public function index(): View {
+    public function index(): View
+    {
         return view('contact.index');
     }
 
-    public function store(SendContactForm $contactForm) {
+    public function store(SendContactForm $contactForm)
+    {
         $form = new Contact();
         $form->email = auth()->user()->email ?? $contactForm->email;
         $form->subject = $contactForm->subject;

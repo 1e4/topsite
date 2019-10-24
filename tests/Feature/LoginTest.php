@@ -29,7 +29,8 @@ class LoginTest extends BaseTest
         $response->assertStatus(200);
     }
 
-    public function testLoginPageRedirectsWhenLoggedIn() {
+    public function testLoginPageRedirectsWhenLoggedIn()
+    {
         Auth::loginUsingId(1);
         $response = $this->get('/login');
 

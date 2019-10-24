@@ -18,13 +18,14 @@ class CheckSiteIsOnline
     public function handle($request, Closure $next)
     {
 
-        if(Settings::where('key', 'site_online')->first()->value !== '1')
-        {
-            if($request->user() && $request->user()->isAdmin())
+        if (Settings::where('key', 'site_online')->first()->value !== '1') {
+            if ($request->user() && $request->user()->isAdmin()) {
                 flash("Site is currently offline and only available to administrators")->error();
+            }
 
-            if($request->user() && $request->user()->isAdmin())
+            if ($request->user() && $request->user()->isAdmin()) {
                 return $next($request);
+            }
 
             abort(503);
         }
