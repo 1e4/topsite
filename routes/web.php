@@ -22,7 +22,8 @@ Route::group([
     ]
 ], function () {
 
-    Route::get('/', 'ListingHomeController@index');
+    Route::get('/', 'ListingHomeController@index')
+        ->name('home');
 
     Route::get('/category/{category}', 'ListingCategoryController@show')
         ->name('front.category.show');
@@ -62,8 +63,6 @@ Route::group([
                 'update' => 'front.game.update',
                 'destroy' => 'front.game.destroy',
             ]);
-
-        Route::get('/home', 'HomeController@index')->name('home');
 
         Route::get('/account', 'AccountController@index')
             ->name('account.index');

@@ -6,7 +6,6 @@ use App\Http\Requests\UpdateSEOSettingsRequest;
 use App\Http\Requests\UpdateSettings;
 use App\Settings;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SettingsController extends Controller

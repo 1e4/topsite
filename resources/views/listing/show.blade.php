@@ -9,7 +9,7 @@
                         <img src="{{ asset('images/uploads/' . $game->banner_image) }}" class="img-fluid" style="max-height: 60px;" />
                     </div>
                 @endif
-                <h2>{{ $game->name }} @if(auth()->user() && $game->created_by === auth()->user()->id) <span class="float-right"><a href="{{ route('front.game.edit', $game) }}" class="btn btn-info">Edit</a> </span> @endif</h2>
+                <h2>{{ $game->name }} @if(auth()->user() && $game->created_by === auth()->id()) <span class="float-right"><a href="{{ route('front.game.edit', $game) }}" class="btn btn-info">Edit</a> </span> @endif</h2>
                 <h4 class="text-muted"><a href="{{ route('listing.out', $game->slug) }}">{{ $game->url }}</a></h4>
             </div>
 

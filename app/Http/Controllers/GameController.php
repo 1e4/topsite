@@ -6,39 +6,62 @@ use App\Category;
 use App\Game;
 use App\Http\Requests\CreateGameRequest;
 use App\ImageUpload;
+use App\Services\CategoryService;
+use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class GameController extends Controller
 {
+    /**
+     * Returns a list of all a user's games
+     *
+     * @return View
+     */
     public function index(): View
     {
-
-        $games = Game::where('created_by', auth()->user()->id)
+        $games = Game::where('created_by', auth()->id())
             ->get();
 
         return view('games.index', compact('games'));
     }
 
-    public function create(): View
+    /**
+     * Shows the view to create a new game
+     *
+     * @param CategoryService $categoryService
+     *
+     * @return View
+     */
+    public function create(CategoryService $categoryService): View
     {
-        $categories = [];
-        $categories["none__"] = "-- Select Category --";
-        $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
+        $categories = $categoryService->buildSelectArray();
 
         return view('games.create', compact('categories'));
     }
 
-    public function show($slug): RedirectResponse
+    /**
+     * Shows a listing based on slug
+     *
+     * @param String $slug
+     *
+     * @return RedirectResponse
+     */
+    public function show(String $slug): RedirectResponse
     {
         return redirect()
             ->route('front.listing.show', $slug);
     }
 
-    public function store(CreateGameRequest $request): RedirectResponse
+    /**
+     * Stores a newly created game in the database
+     *
+     * @param CreateGameRequest $request
+     *
+     * @return RedirectResponse
+     */
+    public function store(CreateGameRequest $request, ImageService $imageService): RedirectResponse
     {
-
         $category = Category::findBySlug($request->input('category_id'));
 
         $game = new Game();
@@ -49,9 +72,7 @@ class GameController extends Controller
         $game->uuid = \Str::uuid();
 
         if ($request->has('banner_image')) {
-            $banner = $request->file('banner_image');
-            $imageName = md5($banner->getClientOriginalName() . time()) . '.' . $banner->getClientOriginalExtension();
-            $banner->move(public_path('images/uploads'), $imageName);
+            $imageName = $imageService->buildAndMove($request, 'banner_image');
 
             $game->banner_image = $imageName;
         }
@@ -71,29 +92,33 @@ class GameController extends Controller
             ->route('front.game.index');
     }
 
-    public function edit(Game $game): View
+    /**
+     * Returns the view to edit an existing game
+     *
+     * @param Game $game
+     * @param CategoryService $categoryService
+     *
+     * @return View
+     */
+    public function edit(Game $game, CategoryService $categoryService, ImageService $imageService): View
     {
+        $categories = $categoryService->buildSelectArray();
 
-        $categories = [];
-        $categories["none__"] = "-- Select Category --";
-        $categories = array_merge($categories, Category::all()->pluck('name', 'slug')->toArray());
-
-        $images = ImageUpload::where('game_id', $game->id)->get();
-
-        $imageCache = [];
-
-        foreach ($images as $image) {
-            $img['name'] = $image->filename; //get the filename in array
-            $img['size'] = filesize(public_path('images/uploads/' . $image->filename)); //get the flesize in array
-            $imageCache[] = $img; // copy it to another array
-        }
-
-        $images = $imageCache;
+        $imageCollection = ImageUpload::where('game_id', $game->id)->get();
+        $images = $imageService->getBasics($imageCollection);
 
         return view('games.edit', compact('game', 'categories', 'images'));
     }
 
-    public function update(CreateGameRequest $request, Game $game): RedirectResponse
+    /**
+     * Updates an existing game in the database
+     *
+     * @param CreateGameRequest $request
+     * @param Game $game
+     *
+     * @return RedirectResponse
+     */
+    public function update(CreateGameRequest $request, Game $game, ImageService $imageService): RedirectResponse
     {
         $category = Category::findBySlug($request->input('category_id'));
 
@@ -113,9 +138,7 @@ class GameController extends Controller
                 }
             }
 
-            $banner = $request->file('banner_image');
-            $imageName = md5($banner->getClientOriginalName() . time()) . '.' . $banner->getClientOriginalExtension();
-            $banner->move(public_path('images/uploads'), $imageName);
+            $imageName = $imageService->buildAndMove($request, 'banner_image');
 
             $game->banner_image = $imageName;
         }
@@ -129,12 +152,19 @@ class GameController extends Controller
             });
         }
 
-        flash('Game has been updated, it must now be re approved')->success();
+        flash('Game has been updated, it must now be re-approved')->success();
 
         return redirect()
             ->route('front.game.edit', $game);
     }
 
+    /**
+     * Removes a game from the database
+     *
+     * @param Game $game
+     *
+     * @return RedirectResponse
+     */
     public function destroy(Game $game): RedirectResponse
     {
         $game->delete();

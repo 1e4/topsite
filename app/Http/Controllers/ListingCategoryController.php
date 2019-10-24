@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Game;
+use Illuminate\View\View;
 use Artesaos\SEOTools\Facades\SEOTools;
-use Illuminate\Http\Request;
 
 class ListingCategoryController extends Controller
 {
-    public function show($category)
+    /**
+     * Shows the view for a listing category
+     *
+     * @param String $category
+     *
+     * @return View
+     */
+    public function show(String $category): View
     {
         $currentCategory = Category::whereSlug($category)->firstOrFail();
 

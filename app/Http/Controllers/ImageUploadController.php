@@ -3,38 +3,58 @@
 namespace App\Http\Controllers;
 
 use App\ImageUpload;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
 
 class ImageUploadController extends Controller
 {
-    public function fileCreate()
+    /**
+     * Returns the view to add an image
+     *
+     * @return View
+     */
+    public function fileCreate(): View
     {
         return view('imageupload');
     }
 
-    public function fileStore(Request $request)
+    /**
+     * Stores a new image
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function fileStore(Request $request, ImageService $imageService): JsonResponse
     {
-        $image = $request->file('file');
-        $imageName = md5($image->getClientOriginalName() . time()) . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images/uploads'), $imageName);
+        $imageName = $imageService->buildAndMove($request, 'file');
 
         $imageUpload = new ImageUpload();
         $imageUpload->filename = $imageName;
-        $imageUpload->original_name = $image->getClientOriginalName();
-        $imageUpload->owner_id = \Auth::user()->id;
+        $imageUpload->original_name = $request->file('file')->getClientOriginalName();
+        $imageUpload->owner_id = \Auth::id();
         $imageUpload->save();
 
         return response()->json(['success' => $imageName]);
     }
 
-    public function fileDestroy(Request $request)
+    /**
+     * Destroys a file
+     *
+     * @param Request $request
+     *
+     * @return String
+     */
+    public function fileDestroy(Request $request): String
     {
         $filename = $request->get('filename');
         $image = ImageUpload::where('filename', $filename)
             ->orWhere('original_name', $filename);
 
         if (!\Auth::user()->is_admin) {
-            $image->where('owner_id', \Auth::user()->id);
+            $image->where('owner_id', \Auth::id());
         }
 
         $image->delete();

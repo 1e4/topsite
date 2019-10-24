@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Game;
-use App\Settings;
 use Artesaos\SEOTools\Facades\SEOTools;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ListingHomeController extends Controller
 {
+    /**
+     * Shows the home view
+     *
+     * @return View
+     */
     public function index(): View
     {
         $listings = Game::approved()
