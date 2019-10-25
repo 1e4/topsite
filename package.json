@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "dropzone": "^5.5.1",
-        "lightbox2": "^2.11.1"
+        "lightbox2": "^2.11.1",
+        "selectize.js": "^0.12.12"
     }
 }

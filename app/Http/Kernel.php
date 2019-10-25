@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckRegistrationsAreOpen;
 use App\Http\Middleware\CheckSiteIsOnline;
 use App\Http\Middleware\RequireUserAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -64,6 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'site_online'   =>         CheckSiteIsOnline::class,
+        'checkRegistrationsAreOpen'   =>         CheckRegistrationsAreOpen::class,
 
     ];
 

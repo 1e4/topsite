@@ -1,7 +1,7 @@
 {
-    "/js/app.js": "/js/app.js?id=26d1ed3f34f791c9de10",
-    "/css/app.css": "/css/app.css?id=b760d354e724fa16071a",
-    "/css/admin/admin.css": "/css/admin/admin.css?id=21c42936c0c1720aa263",
+    "/js/app.js": "/js/app.js?id=5feb19faa53cbc3fe2ed",
+    "/css/app.css": "/css/app.css?id=a5d06a318375d9c8a750",
+    "/css/admin/admin.css": "/css/admin/admin.css?id=2a30384a1c535a45039d",
     "/js/helpers.js": "/js/helpers.js?id=fd31e989a9e6055eb23c",
     "/js/jquery.min.js": "/js/jquery.min.js?id=220afd743d9e9643852e",
     "/js/admin/bootstrap.bundle.min.js": "/js/admin/bootstrap.bundle.min.js?id=a454220fc07088bf1fdd",
@@ -10,5 +10,6 @@
     "/js/admin/dataTables.bootstrap4.min.js": "/js/admin/dataTables.bootstrap4.min.js?id=b63fdeeb4941fd4cab8a",
     "/js/admin/jquery.dataTables.min.js": "/js/admin/jquery.dataTables.min.js?id=97fd6a774fc6211e7619",
     "/js/dropzone.min.js": "/js/dropzone.min.js?id=33148c7d5e055ea74714",
-    "/js/lightbox.min.js": "/js/lightbox.min.js?id=65903b83a0bc6fc9f233"
+    "/js/lightbox.min.js": "/js/lightbox.min.js?id=65903b83a0bc6fc9f233",
+    "/js/selectize.min.js": "/js/selectize.min.js?id=5e13505f150647321c91"
 }
