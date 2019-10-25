@@ -7,9 +7,7 @@ use App\Game;
 use App\Http\Requests\CreateCategoryRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
@@ -53,25 +51,19 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateCategoryRequest $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function store(CreateCategoryRequest $request)
+    public function store(CreateCategoryRequest $request): RedirectResponse
     {
         $category = new Category();
-        $category->fill($request->all('name'));
-        $category->save();
-
-        flash('Category has been created')->success();
-
-        return redirect()
-            ->route('category.show', [$category]);
+        return $this->update($request, $category);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function show(Category $category): View
     {
@@ -82,7 +74,7 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function edit(Category $category): View
     {
@@ -94,9 +86,9 @@ class CategoryController extends Controller
      *
      * @param CreateCategoryRequest $request
      * @param Category $category
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function update(CreateCategoryRequest $request, Category $category)
+    public function update(CreateCategoryRequest $request, Category $category): RedirectResponse
     {
         $category->fill($request->all('name'));
         $category->save();
@@ -116,11 +108,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category): RedirectResponse
     {
-
         Game::whereCategoryId($category->id)
-            ->update([
-                "category_id"   =>  null
-            ]);
+            ->update(['category_id' => null]);
 
         $category->delete();
 
