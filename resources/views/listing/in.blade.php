@@ -20,9 +20,9 @@
             {!! NoCaptcha::display() !!}
         </div>
 
-        @if(request()->username)
-            {!! Form::hidden('username', request()->username) !!}
-        @endif
+        @foreach(request()->query() as $k => $v)
+            {!! Form::hidden($k, $v) !!}
+        @endforeach
 
         {!! Form::submit('Vote for ' . $listing->name) !!}
 
