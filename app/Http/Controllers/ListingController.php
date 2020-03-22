@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Game;
+use App\Vote;
+use Illuminate\View\View;
+use App\Jobs\VoteWasCast;
 use App\Http\Requests\VoteIn;
 use App\Services\ChartService;
-use App\Vote;
-use Artesaos\SEOTools\Facades\SEOTools;
-use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Artesaos\SEOTools\Facades\SEOTools;
 
 class ListingController extends Controller
 {
@@ -18,6 +18,7 @@ class ListingController extends Controller
      *
      * @param String $listing
      *
+     * @param ChartService $chartService
      * @return View
      */
     public function show(String $listing, ChartService $chartService): View
@@ -82,21 +83,8 @@ class ListingController extends Controller
     {
         $listing = Game::findBySlug($slug);
 
-        // @todo move this to a job because it takes a few seconds to work if it fails
         if ($listing->callback_url) {
-            try {
-                $client = new Client([
-                    'timeout'   =>  3
-                ]);
-                $client->post($listing->callback_url, [
-                    'query' =>  [
-                        'ip'    =>  request()->ip(),
-                        'username'  =>  request()->input('username', 'null')
-                    ]
-                ]);
-            } catch (\Exception $exception) {
-                //
-            }
+            VoteWasCast::dispatch($listing);
         }
 
         $vote = Vote::where('created_at', '>', now()->startOfDay())->firstOrNew([
